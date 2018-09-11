@@ -12,15 +12,7 @@ var con = mysql.createConnection({
   database : "bigscholarlydata"
 });
 console.log('MySQL Connection details  '+con);
-/*
-fs.readFile('./index.html', function (err, html) {
-    if (err) throw err;
-    http.createServer(function (request, response)
-    {
-            console.log('Creating the http server');
 
-    }).listen(3000, "127.0.0.1");
-});*/
 var app = express();
 app.get('/',function(req,resp){
     resp.sendFile('./index.html',{'root':__dirname});
