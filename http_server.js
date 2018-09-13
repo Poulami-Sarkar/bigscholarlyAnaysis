@@ -20,7 +20,7 @@ app.get('/',function(req,resp){
 
 app.get('/data', function(req, res){
   var obj = {};
-  con.query(query,[1, 2], function(err, resp, fields)
+  con.query(query, function(err, resp, fields)
   {
           console.log('Connection result error '+err);
           console.log('no of records is '+resp.length);
