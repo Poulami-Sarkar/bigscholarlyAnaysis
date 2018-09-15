@@ -14,8 +14,10 @@ var con = mysql.createConnection({
 console.log('MySQL Connection details  '+con);
 
 var app = express();
+app.set('view engine','ejs')
 app.get('/',function(req,resp){
-    resp.sendFile('./index.html',{'root':__dirname});
+
+  resp.sendFile('./index.html',{'root':__dirname});
 });
 
 app.get('/data', function(req, res){
