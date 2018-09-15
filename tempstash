@@ -1,0 +1,8 @@
+
+   <p onclick="changeText(this)"></p>
+            <script>
+//                var a = getElementById("tester");
+//                function changeText(id){
+//                id.innerHTML = a.style.display='block';                }
+//            </script>
+            
