@@ -29,6 +29,7 @@ function onLoad() {
    type: 'bar'}], {
    margin: { t: 0 } } );
    console.log("ugi");
+   console.log('hello')
    // append child (with text value o messageToDisplay for instance) here or do some more stuff
 }
 
