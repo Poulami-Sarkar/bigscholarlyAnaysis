@@ -10,5 +10,31 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src= "main.js"></script>
+
+
+
+<button id='b'>Click</button>
+<p id='a'></p>
+        <script>
+            var t = document.getElementById('tester');
+            t.style.display='none'
+            var b= document.getElementById('b');
+
+            b.addEventListener('click',function(){
+                t.style.display='block';
+               // window.alert(t)
+            })
+            b.addEventListener('mouseover', () =>{
+                document.getElementById('a').innerHTML = 'click to get info' 
+                     
+            })
+
+            b.addEventListener('mouseout', () =>{
+                document.getElementById('a').innerHTML = '' 
+                     
+            })
+            
+            </script>
+
 </body>
 </html>
