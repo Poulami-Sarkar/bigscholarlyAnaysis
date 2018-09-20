@@ -1,11 +1,13 @@
 var req = new XMLHttpRequest();
 var url = '/data';
 
-req.open('GET',url,true); // set this to POST if you would like
-req.addEventListener('load',onLoad);
-req.addEventListener('error',onError);
+$('.btn').on('click', function() {
+  req.open('GET',url,true); // set this to POST if you would like
+  req.addEventListener('load',onLoad);
+  req.addEventListener('error',onError);
 
-req.send();
+  req.send();
+ });
 
 function onLoad() {
    var response = this.responseText;
