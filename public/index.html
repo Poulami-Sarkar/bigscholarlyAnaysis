@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+
+
+
+<body>
+    <ul class="topnav tabs">
+            <li class="tab"><a class="active " href="#home">Home</a></li>
+            <li class="tab">
+                <a href="#about">About</a>
+            </li>
+            <li class="tab">
+                <a href="#analysis">Analysis</a>
+            </li>
+    </ul>
+    <div class="container">        
+        <div id="home" class="col s12">
+            <p>hello hello</p>
+            <p>hello hello</p>
+        </div>
+        <div id="about"class="col s12">
+                <p>hello hello</p>
+                <p>hello hello</p>
+    
+        </div>
+        <div id="analysis" class="col s12">
+            <div class ="row">
+                <div class='options col s2'>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                    <button class ="btn btn1" type="button" >Click Me!</button>                    
+                </div>
+                <div class=' col s5'>
+                    <label style=" color: blanchedalmond">SE</label>
+                    <div id="plot0" style="width:350px;height:300px;"></div>
+                </div>
+                <div class=' col s5'>
+                    <label  style=" color: blanchedalmond">AM</label>
+                    <div id="plot1" style="width:350px;height:300px;"></div>
+                    
+                </div>
+        </div>
+        </div>
+    </div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+<script src= "main.js"></script>
+</body>
+</html>

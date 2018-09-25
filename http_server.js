@@ -2,8 +2,9 @@ var http = require('http');
 var mysql = require('mysql');
 var express = require('express');
 var fs = require('fs');
-var query = 'select year,count(*) journal_count from Aminer_cite_se group by year;'
+var query //= 'select year,count(*) journal_count from Aminer_cite_se group by year;'
 var output ;
+var url
 
 var con = mysql.createConnection({
   host: "129.150.204.34",
@@ -14,10 +15,15 @@ var con = mysql.createConnection({
 console.log('MySQL Connection details  '+con);
 
 var app = express();
+//FIGURE THIS OUT
 app.set('view engine','ejs')
+
+//This has to be done in order to link materialize
+app.use(express.static('public'))
+
 app.get('/',function(req,resp){
 
-  resp.sendFile('./index.html',{'root':__dirname});
+  resp.sendFile('./public/index.html',{'root':__dirname});
 });
 
 app.get('/data', function(req, res){
@@ -36,9 +42,17 @@ app.get('/data', function(req, res){
   //res.send(rows);
 });
 
-app.get('/main.js',function(req,resp){
-    resp.sendFile('./main.js',{'root':__dirname});
-});
-
 app.listen(8000);
 console.log('Server running at http://127.0.0.1:8000/');
+
+app.get('/query', function (req, res) {
+  query = req.query.q
+    con.query(query, function(err, resp, fields)
+    {
+            console.log('Connection result error '+err);
+            console.log('no of records is '+resp.length);
+            output =  JSON.stringify(resp)
+            console.log(resp[0].year);
+            res.send(resp);
+    });  
+})
