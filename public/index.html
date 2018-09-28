@@ -36,7 +36,9 @@
         </div>
         <div id="analysis" class="col s12">
             <div class ="row">
-                <div class='options col s2'>
+                <div class ="row">
+                    <div class='options col s4'>
+                        <span >Show the number of publications (and the number of authors)</span>
                         <form action="#">
                             <p>
                                 <label>
@@ -51,16 +53,37 @@
                                 </label>
                             </p>
                         </form>
-                    <button class ="btn btn1" type="button" >Click Me!</button>                    
+                        <button class ="btn btn1" type="button" >Click Me!</button>                    
+                    </div>           
+                    <div class='options col s4'>
+                            <span >Show the number of publications (and the number of authors)</span>
+                            <form action="#">
+                                <p>
+                                    <label>
+                                    <input type="checkbox" id='se2'/>
+                                    <span >SE</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input type="checkbox" id='am2' />
+                                    <span>AM</span>
+                                    </label>
+                                </p>
+                            </form>
+                            <button class ="btn btn2" type="button" >Click Me!</button>                    
+                        </div>           
                 </div>
-                <div class=' col s5'>
-                    <label style=" color: blanchedalmond">SE</label>
-                    <div id="plot0" style="width:350px;height:300px;"></div>
-                </div>
-                <div class=' col s5'>
-                    <label  style=" color: blanchedalmond">AM</label>
-                    <div id="plot1" style="width:350px;height:300px;"></div>
-                    
+                <div class="row">    
+                    <div class=' col s5'>
+                        <label style=" color: blanchedalmond">SE</label>
+                        <div id="plot0" style="width:350px;height:300px;"></div>
+                    </div>
+                    <div class=' col s5'>
+                        <label  style=" color: blanchedalmond">AM</label>
+                        <div id="plot1" style="width:350px;height:300px;"></div>
+                        
+                    </div>
                 </div>
         </div>
         </div>
