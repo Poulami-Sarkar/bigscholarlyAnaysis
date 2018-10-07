@@ -52,29 +52,29 @@ function average(data) {
     return avg;
 }
 
-function doublevalues (arr,year){
+function doublevalues (yval,year){
   var i=0;
-  while (arr[i] == 0 || arr[i] == null){
+  while (yval[i] == 0 || yval[i] == null){
     i++;
   } 
-  var base = arr[i];
-  var x=[];
+  var base = yval[i];
   var y=[];
-  x.push(arr[i]);
-  y.push(year[i]);
+  var x=[];
+  y.push(yval[i]);
+  x.push(year[i]);
   var j=2;
   var diff=0;
-  for (i =i+1;i<arr.length;i++){
-    diff= diff+arr[i];
+  for (i =i+1;i<yval.length;i++){
+    diff= diff+yval[i];
   }
-  console.log(diff/(arr.length*2));
-  diff = diff/(arr.length*2);
-  for (i =1;i<arr.length;i++){
-    if(arr[i]>=(base*2)){
-        x.push(arr[i]);
-        y.push(year[i]);
-        console.log(base*j,arr[i]);
-        base = arr[i];
+  console.log(diff/(yval.length*2));
+  diff = diff/(yval.length*2);
+  for (i =1;i<yval.length;i++){
+    if(yval[i]>=(base*2)){
+        y.push(yval[i]);
+        x.push(year[i]);
+        console.log(base*j,yval[i]);
+        base = yval[i];
     }
   }
   console.log(x,y)
@@ -120,13 +120,13 @@ $('.btn2').on('click', function() {
 
 //Authors/paper
 $('.btn3').on('click', function() {
-  if($('#se3').is(':checked')){
+  //if($('#se3').is(':checked')){
   console.log("cl");
   Plotly.purge($('#plot0'));
   query('select * from (select  paper_year, avg(ai_citations) aiav from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where ai.paper_id =pai.paper_id and pai.paper_year >1970 group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year, avg(se_citations) seav from (select pse.paper_published_year paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se, Papers_SE pse where se.paper_ID =pse.paper_ID and pse.paper_published_year >1970 group by pse.paper_ID) se group by paper_year) t2 on t1.paper_year = t2.paper_year;');
   disp3[0] =1;
   console.log(messageToDisplay)
-  }
+  //}
 });
 
 function onLoad() {
@@ -175,8 +175,8 @@ function display1(parsedResponse,no){
 
    TESTER = document.getElementById('plot'+no);
    var markers = {
-    y:(doublevalues(yval1,xval)[0]).concat(doublevalues(yval2,xval)[0]),
-    x:(doublevalues(yval1,xval)[1]).concat(doublevalues(yval2,xval)[1]),
+    x:(doublevalues(yval1,xval)[0]).concat(doublevalues(yval2,xval)[0]),
+    y:(doublevalues(yval1,xval)[1]).concat(doublevalues(yval2,xval)[1]),
     mode: 'markers',
     name: 'double',
     marker: {color:'red'}
@@ -227,8 +227,8 @@ function display2(parsedResponse,no){
       name: nametitle
     };
     var markers = {
-      y:(doublevalues(yval,xval)[0]),
-      x:(doublevalues(yval,xval)[1]),
+      x:(doublevalues(yval,xval)[0]),
+      y:(doublevalues(yval,xval)[1]),
       mode: 'markers',
       name: 'double',
       marker: {color:'red'}
@@ -250,8 +250,8 @@ function display3(parsedResponse,no){
    }   
    TESTER = document.getElementById('plot'+no);
    var markers = {
-    y:(doublevalues(yval1,xval)[0]).concat(doublevalues(yval2,xval)[0]),
-    x:(doublevalues(yval1,xval)[1]).concat(doublevalues(yval2,xval)[1]),
+    x:(doublevalues(yval1,xval)[0]).concat(doublevalues(yval2,xval)[0]),
+    y:(doublevalues(yval1,xval)[1]).concat(doublevalues(yval2,xval)[1]),
     mode: 'markers',
     name: 'double',
     marker: {color:'red'}
@@ -293,10 +293,17 @@ function query (str){
   
   http.onreadystatechange = function() {//Call a function when the state changes.
       if(http.readyState == 4 && http.status == 200) {
-          alert(http.responseText);
+          //alert(http.responseText);
           result=http.responseText;
       }
   }
   console.log("query returning");
   http.send()   ;  
 }
+
+
+
+///////////////////////////////////////////////////////////////
+//                       Nimisha's part                      //
+//                        (Home page)                        //
+///////////////////////////////////////////////////////////////
