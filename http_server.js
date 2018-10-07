@@ -15,7 +15,7 @@ var con = mysql.createConnection({
 console.log('MySQL Connection details  '+con);
 
 var app = express();
-//FIGURE THIS OUT
+//set view engine to ejs
 app.set('view engine','ejs')
 
 //This has to be done in order to link materialize
