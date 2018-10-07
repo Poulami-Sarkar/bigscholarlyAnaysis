@@ -42,7 +42,7 @@ app.get('/data', function(req, res){
   //res.send(rows);
 });
 
-app.listen(8000);
+app.listen(8088);
 console.log('Server running at http://127.0.0.1:8000/');
 
 app.get('/query', function (req, res) {

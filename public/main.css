@@ -33,7 +33,7 @@ body {
     background-color: rgb(24, 13, 54);
     color: white;
 }
-
+year
 .column {
   float: left;
   width: 25%;
@@ -56,4 +56,12 @@ body {
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
+}
+
+.main {
+    padding: 20px;
+}
+
+.btn{
+    border-radius: 10px;
 }
