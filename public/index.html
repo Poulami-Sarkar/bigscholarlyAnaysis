@@ -37,8 +37,11 @@
         <div id="analysis" class="col s12">
             <div class ="row">
                 <div class ="row">
-                    <div class='options col s4'>
-                        <span >Show the number of publications (and the number of authors)</span>
+                    <div class='options col s3'>
+                        <span >
+                            <p>Publication Growth:</p>
+                            <p>#query1: How many years did it take for the publication volume to double</p>
+                        </span>
                         <form action="#">
                             <p>
                                 <label>
@@ -53,9 +56,8 @@
                                 </label>
                             </p>
                         </form>
-                        <button class ="teal darken-2 btn btn1" type="button" >Click Me!</button>                    
                     </div>           
-                    <div class='options col s4'>
+                    <div class='options col s3'>
                         <span><p>#query2: i) avg. number of authors per paper in each year ii) average number of papers published by an author each year</p>
                             <p>#Authors/paper</p></span>
                         <form action="#">
@@ -72,35 +74,59 @@
                                 </label>
                             </p>
                         </form>
-                        <button class ="teal darken-2 btn btn2" type="button" >Click Me!</button>                    
                     </div>
-                    <div class='options col s4'>
-                        <span ><p>#Depth of Related Work Study:</p>
-                            <p>#query3:the average number of citations per paper published in a given year and plot this average number across the years</p>
+                    <div class='options col s2'>
+                        <span ><p>Depth of Related Work Study:</p>
+                            <p>#query3: The average number of citations per paper published in a given year and plot this average number across the years</p>
                             </span>
+                    </div>
+                    <div class='options col s2'>
+                        <span> <p>Self-citation: </p>
+                            <p>#query4: In this analysis, you check whether scientists are doing self-citations in an increasing manner.</p>
+                        </span>
                         <form action="#">
-                            <p>
-                                <label>
-                                <input type="checkbox" id='se3'/>
-                                <span >SE</span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                <input type="checkbox" id='am3' />
-                                <span>AM</span>
-                                </label>
-                            </p>
-                        </form>
-                        <button class ="teal darken-2 btn btn3" type="button" >Click Me!</button>                    
+                                <p>
+                                    <label>
+                                    <input type="checkbox" id='se2'/>
+                                    <span >SE</span>
+                                    </label>
+                                </p>
+                                <p>
+                                    <label>
+                                    <input type="checkbox" id='am2' />
+                                    <span>AM</span>
+                                    </label>
+                                </p>
+                            </form>
+                    </div>
+                    <div class='options col s2'>
+                        <span><p>Myopic vs. Deep referencing: </p>
+                            <p>#query5: How many years back did authors look back in the published literature?</p></span>
                     </div>           
                 </div>
+                <div class="row">
+                    <div class='buttons col s3'>
+                        <button class ="teal darken-2 btn btn1" type="button" >Click Me!</button>                    
+                    </div>
+                    <div class='buttons col s3'>
+                        <button class ="teal darken-2 btn btn2" type="button" >Click Me!</button>                    
+                    </div>
+                    <div class='buttons col s2'>
+                        <button class ="teal darken-2 btn btn3" type="button" >Click Me!</button>                    
+                    </div>
+                    <div class='buttons col s2'>
+                        <button class ="teal darken-2 btn btn4" type="button" >Click Me!</button>                    
+                    </div>
+                    <div class='buttons col s2'>
+                        <button class ="teal darken-2 btn btn5" type="button" >Click Me!</button>                    
+                    </div>
+                </div>
                 <div class="row">    
-                    <div class=' col s4'>
+                    <div class=' col s6'>
                         <label style=" color: blanchedalmond">SE</label>
                         <div id="plot0" style="width:350px;height:300px;"></div>
                     </div>
-                    <div class=' col s4'>
+                    <div class=' col s6'>
                         <label  style=" color: blanchedalmond">AM</label>
                         <div id="plot1" style="width:350px;height:300px;"></div>
                         
