@@ -3,6 +3,8 @@ var messageToDisplay;
 var disp=[0,0];
 var disp2=[0,0];
 var disp3=[0,0];
+var disp4=[0,0];
+var disp5=[0,0];
 var result;
 var layout = {
   showlegend: true,
@@ -129,6 +131,25 @@ $('.btn3').on('click', function() {
   //}
 });
 
+$('.btn4').on('click', function() {
+  //if($('#se3').is(':checked')){
+  console.log("cl");
+  Plotly.purge($('#plot0'));
+  query('select paper_published_year paper_year, avg(self_cite_percent) avg_self_cite_percent from Papers_SE pse ,(  select t1.paper_ID, nonself/count(paper_cite_ID) self_cite_percent from Paper_Citations_SE t1, (select paper_ID,count(paper_cite_ID) nonself from Paper_Citations_SE pc where exists( select author_ID from Paper_Author_Affiliations_SE where paper_ID=pc.paper_ID and author_ID in  (select author_ID from Paper_Author_Affiliations_SE where pc.paper_ID=paper_cite_ID)) group by paper_ID) t2 where t1.paper_ID = t2.paper_ID group by t1.paper_ID) tout where tout.paper_ID = pse.paper_ID and paper_published_year>1970 group by paper_published_year;');
+  disp4[0] =1;
+  console.log(messageToDisplay)
+  //}
+});
+$('.btn5').on('click', function() {
+  Plotly.purge($('#plot0'));
+  //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
+  query('select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year;');
+  disp5[0] =1;
+  console.log(messageToDisplay)
+  //}
+});
+
+
 function onLoad() {
   var response = this.responseText;
   var parsedResponse = JSON.parse(response);   
@@ -159,7 +180,19 @@ function onLoad() {
     display3(messageToDisplay,0);
     console.log(messageToDisplay);
     //display2(messageToDisplay,1);
-  } 
+  }
+  else if (disp4[0] !=0){
+    console.log(disp4);
+    display4(messageToDisplay,0);
+    console.log(messageToDisplay);
+    //display2(messageToDisplay,1);
+  }
+  else if (disp5[0] !=0){
+    console.log(disp5);
+    display5(messageToDisplay,0);
+    console.log(messageToDisplay);
+    //display2(messageToDisplay,1);
+  }
 }
 
 function display1(parsedResponse,no){
@@ -272,9 +305,67 @@ function display3(parsedResponse,no){
 
    Plotly.purge(TESTER);
    Plotly.plot( TESTER, [papers,authors,markers],layout,{responsive: true} );
-   disp[no] =0;
+   disp3[no] =0;
    // append child (with text value o messageToDisplay for instance) here or do some more stuff
 }
+
+function display4(parsedResponse,no){
+  var xval =[];
+  var yval=[];
+
+  for(i=0;i<parsedResponse.length-1;i++){
+    xval.push(parsedResponse[i].paper_year);
+    yval.push(parsedResponse[i].avg_self_cite_percent);
+  }   
+  TESTER = document.getElementById('plot'+no);
+  var markers = {
+   x:(doublevalues(yval,xval)[0]),
+   y:(doublevalues(yval,xval)[1]),
+   mode: 'markers',
+   name: 'double',
+   marker: {color:'red'}
+ };
+  var papers = {
+   x: xval,
+   y: yval,
+   mode: 'lines',
+   name: 'avg_self_cite_percent'
+ };
+
+  Plotly.purge(TESTER);
+  Plotly.plot( TESTER, [papers,markers],layout,{responsive: true} );
+  disp4[no] =0;
+  // append child (with text value o messageToDisplay for instance) here or do some more stuff
+}
+function display5(parsedResponse,no){
+  var xval =[];
+  var yval=[];
+
+  for(i=0;i<parsedResponse.length-1;i++){
+    xval.push(parsedResponse[i].paper_year);
+    yval.push(parsedResponse[i].difference);
+  }   
+  TESTER = document.getElementById('plot'+no);
+  var markers = {
+   x:(doublevalues(yval,xval)[0]),
+   y:(doublevalues(yval,xval)[1]),
+   mode: 'markers',
+   name: 'double',
+   marker: {color:'red'}
+ };
+  var papers = {
+   x: xval,
+   y: yval,
+   mode: 'lines',
+   name: 'year difference'
+ };
+
+  Plotly.purge(TESTER);
+  Plotly.plot( TESTER, [papers,markers],layout,{responsive: true} );
+  disp5[no] =0;
+  // append child (with text value o messageToDisplay for instance) here or do some more stuff
+}
+
 
 function onError() {
   // handle error here, print message perhaps
@@ -293,7 +384,7 @@ function query (str){
   
   http.onreadystatechange = function() {//Call a function when the state changes.
       if(http.readyState == 4 && http.status == 200) {
-          //alert(http.responseText);
+          alert(http.responseText);
           result=http.responseText;
       }
   }
