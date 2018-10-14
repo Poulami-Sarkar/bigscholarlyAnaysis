@@ -85,8 +85,16 @@ function doublevalues (yval,year){
 
 $(document).ready(function(){
   $('.tabs').tabs();
+  $('.accordion').on('click,',function(){
+    $('.panel').show();
+  });
+  
 });
-      
+     
+
+
+
+
 $('.btn1').on('click', function() {
   if($('#se').is(':checked')){
     query('SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);');
@@ -407,8 +415,6 @@ var infoBtn = document.getElementById('infoBtn');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-
-
 infoBtn.onclick = function() {
     modal.style.display ="block";
 };
@@ -423,27 +429,69 @@ window.on('click', function(event){
   }
 })
 
-var accordion = document.getElementsByClassName("accordion");
+
+var accBtn = getElementsByClassName("accordion");
+var accDisp1 = getElementById("accDisp1");
+accBtn.onclick = function(){
+  accDisp1.style.display ="block";
+}
+
+
+/*
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+} 
+
+/*
+var acc = document.querySelector(".accordion");
 var i;
 
 for(i=0;i < acc.length ;i++){
-  acc[i].onclick = function(){
+  acc[i].addEventListener("click", function(){
     this.classList.toggle("active");
     var panel = this.nextElementSibling;
 
-    if(panel.style.maxHeight){
-      panel.style.maxHeight = null;
+    if(panel.style.display === "block"){
+      panel.style.display = "none";
     }
     else{
-      panel.style.maxHeight = panel.scrollHeight +"px";
+      panel.style.display = "block";
     }
-  }
+  });
 }
+
+
 var abc = document.getElementById('abc')
 accordion.onclick = function(){
   abc.style.display="none";
 }
-/*
 function myFunction(id) {
   var x = document.getElementById(id);
   if (x.className.indexOf("acc-show") == -1) {
