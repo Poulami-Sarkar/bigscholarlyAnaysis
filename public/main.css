@@ -65,3 +65,114 @@ year
 .btn{
     border-radius: 10px;
 }
+
+
+.info{
+    color: rgb(30, 255, 105);
+    border-radius: 8px; 
+}
+
+.info:hover{
+    background: #2196F3;
+    color: white;
+}
+
+
+img.dataImg{
+    position: relative;
+    width:100%;
+    height:300px;
+}
+
+h4.dataText{
+    position: absolute;
+    color: rgb(5, 4, 4);
+    padding-top: 0%;
+    backface-visibility: unset;   
+}
+.modal {
+    display: none;
+    position: relative;/* make it fixed if error */
+    z-index: 1;/* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content{
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    padding: 20px;
+
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.accordion {
+    background-color: rgb(209, 127, 127);
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: rgb(218, 152, 152);
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: rgb(212, 169, 169);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.accordion1 {
+    background-color: rgb(240, 130, 130);
+    color: rgb(65, 48, 48);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion1:hover {
+    background-color: rgb(206, 165, 165);
+}
+
+.panel1 {
+    padding: 0 18px;
+    background-color: rgb(196, 145, 145);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}

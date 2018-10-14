@@ -398,3 +398,75 @@ function query (str){
 //                       Nimisha's part                      //
 //                        (Home page)                        //
 ///////////////////////////////////////////////////////////////
+
+
+
+// Automatic Slideshow - change image every 3 seconds
+var myIndex = 0;
+carousel();
+
+function carousel() {
+    var i;
+    var x = document.getElementsByClassName("dataImg");
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    myIndex++;
+    if (myIndex > x.length) {myIndex = 1}
+    x[myIndex-1].style.display = "block";
+    setTimeout(carousel, 2500);
+}
+
+// Get the modal
+var modal = document.getElementById("infoModal");
+// Get the button that opens the modal
+var infoBtn = document.getElementById('infoBtn');
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+infoBtn.onclick = function() {
+    modal.style.display ="block";
+};
+
+$('span').on('click',function(){
+    modal.style.display ="none";
+});
+/*
+window.on('click', function(event){
+  if(event.target == modal) {
+      modal.style.display = "none";
+  }
+})
+*/
+
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+
+var acc1 = document.getElementsByClassName("accordion1");
+var i;
+
+for (i = 0; i < acc1.length; i++) {
+  acc1[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel1 = this.nextElementSibling;
+    if (panel1.style.maxHeight){
+      panel1.style.maxHeight = null;
+    } else {
+      panel1.style.maxHeight = panel1.scrollHeight + "px";
+    } 
+  });
+}
+
+
