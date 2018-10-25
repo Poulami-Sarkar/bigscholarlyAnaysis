@@ -1,10 +1,20 @@
 body {
-	background-image: url("http://jonvilma.com/images/blur-4.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: rgb(65, 60, 92);   
 
 	padding: 0px 0;
-    background-blend-mode: lighten;
     margin: 0 px;
-	font-family: 'Trebuchet MS', 'Helvetica';
+    font-family: 'Trebuchet MS', 'Helvetica';
+    color : whitesmoke;
+}
+
+
+.main-tab-option {
+    font-size: 22px;
+}
+div.analysis{
+    background-color: none;
 }
 /* Add a black background color to the top navigation */
 .topnav {
@@ -33,18 +43,6 @@ body {
     background-color: rgb(24, 13, 54);
     color: white;
 }
-
-.topContent {
-    background-color: #fff;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    padding: 3% 5%;
-    margin-top: 2%;
-}
-
-
-
 year
 .column {
   float: left;
@@ -52,11 +50,11 @@ year
   padding: 0 10px;
 }
 
-
-
-
 /* Remove extra left and right margins, due to padding in columns */
-.row {margin: 0 -5px;}
+.row {
+    margin: 0 -5px;
+    background-color: none;
+}
 
 /* Clear floats after the columns */
 .row:after {
@@ -73,60 +71,65 @@ year
   background-color: #f1f1f1;
 }
 
-.main {
+.main{
     padding: 20px;
 }
 
 .btn{
     border-radius: 10px;
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-
 }
 
-.btn:hover {background: #eee;}
-/* styling of the about page */
-
+/*
 .info{
     color: rgb(30, 255, 105);
     border-radius: 8px; 
 }
 
 .info:hover{
-    background: #2196F3;
+    background: rgba(148, 104, 127, 0.2);
     color: white;
 }
 
+*/
+img.dataImg{
+    position: relative;
+    width:100%;
+    height:300px;
+}
+
+h4.dataText{
+    position: absolute;
+    color: rgb(247, 239, 239);
+    padding-top: 0%;
+    backface-visibility: unset;   
+}
 
 .modal {
     display: none;
-    position: relative;/* make it fixed if error */
-    z-index: 1;/* Sit on top */
+    position: relative;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
+    color: #f1f1f1c9;
+    text-align: left;
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
-
+/*
 .modal-content{
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto; 
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 100%;
     padding: 20px;
 
 }
+*/
 
 .close {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -139,10 +142,10 @@ year
     cursor: pointer;
 }
 
-/*button*/
+
 .accordion {
-    background-color:  rgba(148, 38, 38, 0.315);
-    color:rgb(1, 5, 19);
+    background-color: rgb(128, 127, 209);
+    color: rgb(29, 28, 28);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -152,27 +155,23 @@ year
     font-size: 15px;
     transition: 0.4s;
 }
-/*remove button if necessary*/
-button.accordion.active, button.accordion:hover {
-    background-color: #ccc; 
+
+.accordion:active, .accordion:hover {
+    background-color: rgb(152, 162, 218);
 }
 
-/* Style the accordion panel. Note: hidden by default */
-div.panel {
+.panel {
     padding: 0 18px;
-    color:#000;
-    overflow: hidden;
-    background-color: white;
-    /*display: none;*/
-    margin: 0 auto;
+    background-color: rgb(128, 127, 209);
+    color: rgb(29, 28, 28);
     max-height: 0;
+    overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
 
- /* Style the button that is used to open and close the collapsible content */
- .collapsible {
-    background-color: #eee;
-    color: #444;
+.accordion1 {
+    background-color: rgba(130, 147, 240,0.2);
+    color: whitesmoke;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -180,32 +179,30 @@ div.panel {
     text-align: left;
     outline: none;
     font-size: 15px;
-  }
-  
-  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-  .active, .collapsible:hover {
-    background-color: #ccc;
-  }
-  
-  /* Style the collapsible content. Note: hidden by default */
-  .content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  } 
-
-
-/*
-#about div div p{
-    display: hide;
+    transition: 0.4s;
 }
 
-#about div div p{
-    display: hide;
+.abt, .active, .accordion1:hover {
+    background-color: rgba(175, 165, 206,0.2);
 }
 
-#abc {
-    display: hide;
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 100%;
 }
-*/
+
+th {
+    border: 2px solid black;
+    background-color: rgba(12, 20, 138, 0.6);
+    color: white;
+}
+
+tr, td {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: rgba(169, 193, 212, 0.6)}
+ 
