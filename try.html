@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+    <base href="file:///home/nimisha/bigscholarlyAnaysis/public/index.html" target="_blank">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+
+
+    <style>
+        .btn {
+            color: white;
+        }
+        
+    </style>
+    
+</head>
+
+
+
+<body>
+    <ul class="topnav tabs">
+            <li class="tab"><a class="active " href="#home">Home</a></li>
+            <li class="tab">
+                <a href="#about">About</a>
+            </li>
+            <li class="tab">
+                <a href="#analysis">Analysis</a>
+            </li>
+    </ul>
+    <div class="main">        
+        <div id="home" class="col s12">
+            <div class = "content">
+                <article class= "topContent">
+                    <header>
+                        <h2><a href = "add url" title="About">About</a> </h2>
+                    </header>
+
+                    <footer>
+                        <p class="post-info">
+                            This website is to analyse the scholarly ,publication of the data comprising of close to millions of
+                            research publications, authors, citations and publication venues. The data is present in multiple tables,
+                            hosted in MySQL Cloud service. In this project we intend to build a web based application that presents
+                            various insights drawn from this dataset as visual network, charts, tables and heatmaps.
+                        </p>
+                    </footer>
+                </article>
+            </div>
+
+
+        </div>
+        <div id="about"class="col s12">
+            <div id ="aboutContent">
+                <h2>Know your database</h2>
+                <p id="paraBtnInfo">Click the button to know what the database contains:</p>
+                <!-- Trigger/Open The Modal -->
+                <button id="infoBtn">Show Database Information</button>
+
+                <!-- The Modal -->
+                <div id="infoModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h3>Tables</h3>
+                        </div>
+
+                        <div class="modal-body">
+                                <div id="allTables" style="width:350px;height:300px;">
+                                    <p>+-------------------------------+
+                                            | Tables_in_bigscholarlydata    |
+                                            +-------------------------------+
+                                            | Affiliations_SE               |
+                                            | Aminer_cite_se                |
+                                            | Authors_AM                    |
+                                            | Authors_SE                    |
+                                            | DocTopic_se_cuml_1975_2017_60 |
+                                            | Fields_Of_Study_SE            |
+                                            | Paper_Author_AM               |
+                                            | Paper_Author_Affiliations_SE  |
+                                            | Paper_Author_Year             |
+                                            | Paper_Citations_AI            |
+                                            | Paper_Citations_AM            |
+                                            | Paper_Citations_SE            |
+                                            | Papers_AI                     |
+                                            | Papers_AM                     |
+                                            | Papers_SE                     |
+                                            | Venues_SE                     |
+                                            +-------------------------------+</p>
+
+                                </div>
+                        </div>
+
+                    </div>
+
+                </div> <!--end of infoModal -->      
+            <!---             
+               <button class="accordion" id=accBtn onclick="myFunction('doThis')">"AM" : papers from all domains of computer science</button>
+                <div id="doThis" class="acc-container acc-show">
+                    <p id="abc">ss</p>
+                </div>
+            
+
+                <button class="accordion" onclick="myFunction('doThis1')">"SE" : papers from all domains of software engineering </button>
+                <div id="doThis1" class="acc-container acc-show">
+                    <p>ss</p>
+                </div>
+            
+                <button class="accordion" onclick="myFunction('doThis2')">"AI" : papers from all domains of AI and machine learning</button>
+                <div id="doThis2" class="acc-container acc-show">
+                    <p>ss</p>
+                </div>
+            -->
+
+            <button class="accordion" type="button">AM" : papers from all domains of computer science</button>
+            <div class="panel">
+                <p id="abc">ss</p>
+            </div>
+
+            <button class="accordion" type="button">SE" : papers from all domains of Software engineering</button>
+            <div class="panel">
+                <p id="abc">ss</p>
+            </div>
+            
+            <button class="accordion" type="button">AI" : papers from all domains of AI and ML</button>
+            <div class="panel">
+                <p id="abc">ss</p>
+            </div>
+            
+
+            <!--    <button class="accordion" onclick="myFunction('doThis1')">"SE" : papers from all domains of software engineering </button>
+                <div id="doThis1" class="acc-container acc-show">
+                    <p>ss</p>
+                </div>
+            
+                <button class="accordion" onclick="myFunction('doThis2')">"AI" : papers from all domains of AI and machine learning</button>
+                <div id="doThis2" class="acc-container acc-show">
+                    <p>ss</p>
+                </div>
+
+            -->
+            </div>
+        </div>
+
+        <div id="analysis" class="col s12">
+            <div class ="row">
+                <div class ="row">
+                    <div class='options col s4'>
+                        <span >Show the number of publications (and the number of authors)</span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                        <button class ="teal darken-2 btn btn1" type="button" >Click Me!</button>                    
+                    </div>           
+                    <div class='options col s4'>
+                        <span><p>#query2: i) avg. number of authors per paper in each year ii) average number of papers published by an author each year</p>
+                            <p>#Authors/paper</p></span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se2'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am2' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                        <button class ="teal darken-2 btn btn2" type="button" >Click Me!</button>                    
+                    </div>
+                    <div class='options col s4'>
+                        <span ><p>#Depth of Related Work Study:</p>
+                            <p>#query3:the average number of citations per paper published in a given year and plot this average number across the years</p>
+                            </span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se3'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am3' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                        <button class ="teal darken-2 btn btn3" type="button" >Click Me!</button>                    
+                    </div>           
+                </div>
+                <div class="row">    
+                    <div class=' col s4'>
+                        <label style=" color: blanchedalmond">SE</label>
+                        <div id="plot0" style="width:350px;height:300px;"></div>
+                    </div>
+                    <div class=' col s4'>
+                        <label  style=" color: blanchedalmond">AM</label>
+                        <div id="plot1" style="width:350px;height:300px;"></div>
+                        
+                    </div>
+                </div>
+        </div>
+        </div>
+    </div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+<script src= "main.js"></script>
+</body>
+</html>
