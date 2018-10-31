@@ -93,6 +93,7 @@ $('.btn1').on('click', function() {
     disp[0] =1;
     $(document).ready(function() {
       console.log(messageToDisplay+" click");
+      console.log(messageToDisplay+"returning click");
     });
     //display1(messageToDisplay);
   }
@@ -151,12 +152,14 @@ $('.btn5').on('click', function() {
 
 
 function onLoad() {
+  console.log("Calling on load");
   var response = this.responseText;
   var parsedResponse = JSON.parse(response);   
   // access your data newly received data here and update your DOM with appendChild(), findElementById(), etc...
   messageToDisplay = parsedResponse;
   if (disp[0] ==1){
     console.log(disp);
+    //console.log(disp);
     display1(messageToDisplay,0);``
   }
   else if (disp[1] ==1){
@@ -165,34 +168,44 @@ function onLoad() {
   }
   else if (disp2[0] !=0){
     console.log(disp2);
+    //console.log(disp2);
     messageToDisplay = JSON.parse(result);
     console.log(messageToDisplay[0]);
+    //console.log(messageToDisplay[0]);
     display2(messageToDisplay,0);
   }
   else if (disp2[1] !=0){
     console.log(disp2);
+    //console.log(disp2);
     messageToDisplay = JSON.parse(result);
     display2(messageToDisplay,1);
     //display2(messageToDisplay,1);
   }  
   else if (disp3[0] !=0){
     console.log(disp3);
+    //console.log(disp3);
     display3(messageToDisplay,0);
     console.log(messageToDisplay);
+    //console.log(messageToDisplay);
     //display2(messageToDisplay,1);
   }
   else if (disp4[0] !=0){
     console.log(disp4);
+    //console.log(disp4);
     display4(messageToDisplay,0);
     console.log(messageToDisplay);
+    //console.log(messageToDisplay);
     //display2(messageToDisplay,1);
   }
   else if (disp5[0] !=0){
     console.log(disp5);
+    //console.log(disp5);
     display5(messageToDisplay,0);
     console.log(messageToDisplay);
+    //console.log(messageToDisplay);
     //display2(messageToDisplay,1);
   }
+  console.log("Returning on load");
 }
 
 function display1(parsedResponse,no){
@@ -373,6 +386,7 @@ function onError() {
 }
 
 function query (str){
+  console.log("Calling on query");
   var http = new XMLHttpRequest();
   var url = '/query?q='+str;
   http.open('GET', url, true);
@@ -386,8 +400,10 @@ function query (str){
       if(http.readyState == 4 && http.status == 200) {
           alert(http.responseText);
           result=http.responseText;
+          console.log(JSON.parse(result));
       }
   }
+  //console.log(JSON.parse(result));  
   console.log("query returning");
   http.send()   ;  
 }
