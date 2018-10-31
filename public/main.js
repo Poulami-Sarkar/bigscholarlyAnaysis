@@ -164,6 +164,7 @@ function onLoad() {
   }
   else if (disp[1] ==1){
     console.log(disp);
+    //console.log(disp);
     display1(messageToDisplay,1);
   }
   else if (disp2[0] !=0){
@@ -402,7 +403,6 @@ function query (str){
           result=http.responseText;
           console.log(JSON.parse(result));
       }
-  }
   //console.log(JSON.parse(result));  
   console.log("query returning");
   http.send()   ;  
