@@ -645,7 +645,7 @@ function selected() {
       document.getElementById("q4").style.display= "none";
       document.getElementById("q5").style.display= "none";
   }
-  else if( x === "Query2") {
+  else if( x === "Authors/Paper and Papers/Author") {
     var y = document.getElementById("q2");
     y.style.display = "block";
     document.getElementById("q1").style.display= "none";
