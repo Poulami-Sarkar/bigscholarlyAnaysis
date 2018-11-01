@@ -10,20 +10,24 @@ var layout = {
   showlegend: true,
   legend: {"orientation": "h",
     font:{color:'white'},
-    bgcolor: 'rgba(0,0,0,0)'    
+    bgcolor: 'rgba(0,0,0,0)',
+    yanchor: 'top',
+    y: 1.1,
+    xanchor: 'center',
+    x:0.5
   },
   margin: {
     l: 40,
-    r: 40,
-    b: 20,
-    t: 20,
+    r: 30,
+    b: 40,
+    t: 40,
     pad: 0
   },
   xaxis: {title: 'year',
           color: 'white'
         },
   yaxis: {title:'count',
-          color: 'white',
+          color: 'white'
         },
 
   //opacity=0.1,  
@@ -32,6 +36,103 @@ var layout = {
 }; 
 
 var array = [10, 13, 7, 11, 12, 9, 6, 5];
+//Initialization 
+
+$(document).ready(function(){
+  $('select').formSelect();
+  $('.modal').modal();
+  $('.tabs').tabs();
+});
+
+
+  $('.modal-trigger').click(function(e){
+    var body ="new body";
+    e.preventDefault();
+    var mymodal = $('#info-modal');
+    mymodal.find('.modal-title').text(body);
+    mymodal.find('.modal-body').text(body);
+    //mymodal.modal('show');
+    
+  });
+
+$('select').on('change', function() {
+  var val = $('.query-options').val();
+  if(val== 1|| val==2||val==4){
+    $("#se").attr("disabled", false);
+    $("#am").attr("disabled", false);
+    $("#ai").attr("disabled", true);
+    $(".query-button").attr("disabled", true);
+  }
+  else {
+    $(".query-button").attr("disabled", false);
+    $("input[type=checkbox]").attr("disabled", false);
+  }
+  $("input[type=checkbox]").prop('checked', false);
+});
+
+$( "input[type=checkbox]" ).on( "click", function(){
+  var n = $( "input:checked" ).length;
+  if (n>0){
+    $(".query-button").attr("disabled", false);
+  }
+});
+
+$('.query-button').on('click', function() {
+  Plotly.purge(document.getElementById('plot0'));
+  Plotly.purge(document.getElementById('plot1'));
+  //Growth of publications
+  console.log($('.query-options').val());
+  if($('.query-options').val()== 1){
+    if($('#se').is(':checked')){
+      query('SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);');
+      disp[0] =1;
+      $(document).ready(function() {
+        console.log(messageToDisplay+" click");
+      });
+      //display1(messageToDisplay);
+    }
+    if($('#am').is(':checked')){
+      query('SELECT paper_year year,COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by (paper_year);');
+      disp[1] =1;
+    }
+  }
+  //Nature of collaboration
+  else if($('.query-options').val()== 2){
+    if($('#se').is(':checked')){
+      query('select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;');
+      console.log(messageToDisplay);
+      query('select paper_published_year year, avg(papers) as avg from (SELECT paper_published_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by paper_published_year, author_ID) t2 group by paper_published_year;');   
+      disp2[0] =2;
+      console.log(messageToDisplay)
+    }
+    if($('#am').is(':checked')){
+      query('select paper_year year, avg(papers) avg from (SELECT paper_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_year, author_ID) t2 group by paper_year;');   
+      query('select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;');
+      disp2[1] =2;
+    }
+  }
+  //Depth of related work
+  else if($('.query-options').val()== 3){
+    console.log("cl");
+    query('select * from (select  paper_year, avg(ai_citations) aiav from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where ai.paper_id =pai.paper_id and pai.paper_year >1970 group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year, avg(se_citations) seav from (select pse.paper_published_year paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se, Papers_SE pse where se.paper_ID =pse.paper_ID and pse.paper_published_year >1970 group by pse.paper_ID) se group by paper_year) t2 on t1.paper_year = t2.paper_year;');
+    disp3[0] =1;
+    console.log(messageToDisplay)
+  }
+  //Self-citation
+  else if($('.query-options').val()== 4){
+    console.log("cl");
+    query('select paper_published_year paper_year, avg(self_cite_percent) avg_self_cite_percent from Papers_SE pse ,(  select t1.paper_ID, nonself/count(paper_cite_ID) self_cite_percent from Paper_Citations_SE t1, (select paper_ID,count(paper_cite_ID) nonself from Paper_Citations_SE pc where exists( select author_ID from Paper_Author_Affiliations_SE where paper_ID=pc.paper_ID and author_ID in  (select author_ID from Paper_Author_Affiliations_SE where pc.paper_ID=paper_cite_ID)) group by paper_ID) t2 where t1.paper_ID = t2.paper_ID group by t1.paper_ID) tout where tout.paper_ID = pse.paper_ID and paper_published_year>1970 group by paper_published_year;');
+    disp4[0] =1;
+    console.log(messageToDisplay)
+  }
+  //Myopic VS deep referencing
+  else if($('.query-options').val()== 5){
+    //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
+    query('select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year;');
+    disp5[0] =1;
+    console.log(messageToDisplay)
+  }
+    });
 
 function smooth(values, alpha) {
     var weighted = average(values) * alpha;
@@ -82,72 +183,6 @@ function doublevalues (yval,year){
   console.log(x,y)
   return [x,y];
 }
-
-$(document).ready(function(){
-  $('.tabs').tabs();
-});
-      
-$('.btn1').on('click', function() {
-  if($('#se').is(':checked')){
-    query('SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);');
-    disp[0] =1;
-    $(document).ready(function() {
-      console.log(messageToDisplay+" click");
-    });
-    //display1(messageToDisplay);
-  }
-  if($('#am').is(':checked')){
-    query('SELECT paper_year year,COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by (paper_year);');
-    disp[1] =1;
-  }
-});
-
-//Authors/paper
-$('.btn2').on('click', function() {
-  if($('#se2').is(':checked')){
-    Plotly.purge($('#plot0'));
-    query('select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;');
-    console.log(messageToDisplay);
-    query('select paper_published_year year, avg(papers) as avg from (SELECT paper_published_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by paper_published_year, author_ID) t2 group by paper_published_year;');   
-    disp2[0] =2;
-    console.log(messageToDisplay)
-  }
-  if($('#am2').is(':checked')){
-    Plotly.purge($('#plot1'));
-    query('select paper_year year, avg(papers) avg from (SELECT paper_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_year, author_ID) t2 group by paper_year;');   
-    query('select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;');
-    disp2[1] =2;
-  }
-});
-
-//Authors/paper
-$('.btn3').on('click', function() {
-  //if($('#se3').is(':checked')){
-  console.log("cl");
-  Plotly.purge($('#plot0'));
-  query('select * from (select  paper_year, avg(ai_citations) aiav from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where ai.paper_id =pai.paper_id and pai.paper_year >1970 group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year, avg(se_citations) seav from (select pse.paper_published_year paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se, Papers_SE pse where se.paper_ID =pse.paper_ID and pse.paper_published_year >1970 group by pse.paper_ID) se group by paper_year) t2 on t1.paper_year = t2.paper_year;');
-  disp3[0] =1;
-  console.log(messageToDisplay)
-  //}
-});
-
-$('.btn4').on('click', function() {
-  //if($('#se3').is(':checked')){
-  console.log("cl");
-  Plotly.purge($('#plot0'));
-  query('select paper_published_year paper_year, avg(self_cite_percent) avg_self_cite_percent from Papers_SE pse ,(  select t1.paper_ID, nonself/count(paper_cite_ID) self_cite_percent from Paper_Citations_SE t1, (select paper_ID,count(paper_cite_ID) nonself from Paper_Citations_SE pc where exists( select author_ID from Paper_Author_Affiliations_SE where paper_ID=pc.paper_ID and author_ID in  (select author_ID from Paper_Author_Affiliations_SE where pc.paper_ID=paper_cite_ID)) group by paper_ID) t2 where t1.paper_ID = t2.paper_ID group by t1.paper_ID) tout where tout.paper_ID = pse.paper_ID and paper_published_year>1970 group by paper_published_year;');
-  disp4[0] =1;
-  console.log(messageToDisplay)
-  //}
-});
-$('.btn5').on('click', function() {
-  Plotly.purge($('#plot0'));
-  //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
-  query('select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year;');
-  disp5[0] =1;
-  console.log(messageToDisplay)
-  //}
-});
 
 
 function onLoad() {
