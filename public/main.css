@@ -83,10 +83,6 @@ year
     margin: 80px;
 }
 
-#plot0,#plot1{
-    background-color: rgba(0, 0, 0, 0.835);
-    color: white;
-}
 /*
 .info{
     color: rgb(30, 255, 105);
@@ -215,5 +211,5 @@ tr, td {
 
 tr:nth-child(even){background-color: rgba(169, 193, 212, 0.6)}
  
-.
+
 
