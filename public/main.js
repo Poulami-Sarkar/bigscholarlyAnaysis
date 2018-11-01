@@ -6,6 +6,7 @@ var disp3=[0,0];
 var disp4=[0,0];
 var disp5=[0,0];
 var result;
+var i;
 var layout = {
   showlegend: true,
   legend: {"orientation": "h",
@@ -152,7 +153,10 @@ $('.btn5').on('click', function() {
 
 function onLoad() {
   var response = this.responseText;
-  var parsedResponse = JSON.parse(response);   
+
+  console.log("in onload");
+  var parsedResponse = JSON.parse(response);
+     
   // access your data newly received data here and update your DOM with appendChild(), findElementById(), etc...
   messageToDisplay = parsedResponse;
   if (disp[0] ==1){
@@ -192,6 +196,9 @@ function onLoad() {
     display5(messageToDisplay,0);
     console.log(messageToDisplay);
     //display2(messageToDisplay,1);
+  }
+  else{
+    table11(messageToDisplay);
   }
 }
 
@@ -269,7 +276,8 @@ function display2(parsedResponse,no){
     Plotly.plot( TESTER, [trace,markers],layout,{responsive: true});
     disp2[no] =disp2[no]-1;   
 }
-  // append child (with text value o messageToDisplay for instance) here or do some more stuff
+
+// append child (with text value o messageToDisplay for instance) here or do some more stuff
 
 function display3(parsedResponse,no){
    var xval =[];
@@ -337,6 +345,7 @@ function display4(parsedResponse,no){
   disp4[no] =0;
   // append child (with text value o messageToDisplay for instance) here or do some more stuff
 }
+
 function display5(parsedResponse,no){
   var xval =[];
   var yval=[];
@@ -369,7 +378,9 @@ function display5(parsedResponse,no){
 
 function onError() {
   // handle error here, print message perhaps
+  
   console.log('error receiving async AJAX call');
+  console.error();
 }
 
 function query (str){
@@ -392,7 +403,17 @@ function query (str){
   http.send()   ;  
 }
 
+/*
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, options);
+});
+*/
+// Or with jQuery
 
+$(document).ready(function(){
+  $('select').formSelect();
+});
 
 ///////////////////////////////////////////////////////////////
 //                       Nimisha's part                      //
@@ -441,6 +462,7 @@ window.on('click', function(event){
 
 var acc = document.getElementsByClassName("accordion");
 var i;
+var flag=0;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
@@ -449,24 +471,210 @@ for (i = 0; i < acc.length; i++) {
     if (panel.style.maxHeight){
       panel.style.maxHeight = null;
     } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
+      panel.style.maxHeight = panel.scrollHeight +100+ "px";
     } 
   });
 }
 
 var acc1 = document.getElementsByClassName("accordion1");
-var i;
 
+/*
 for (i = 0; i < acc1.length; i++) {
+  console.log(i + "forloop");
   acc1[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel1 = this.nextElementSibling;
+    
+    /*var panel1 = this.nextElementSibling;
     if (panel1.style.maxHeight){
       panel1.style.maxHeight = null;
     } else {
-      panel1.style.maxHeight = panel1.scrollHeight + "px";
+      panel1.style.maxHeight = panel1.scrollHeight+100 + "px";
     } 
   });
 }
+*/
 
 
+acc11.addEventListener("click",function() {
+  console.log("acc11");
+  console.log("event Listener");
+  console.log("in button acc11 click")
+
+  i=11
+  description(i);
+  //this.classList.toggle("active");
+});
+
+
+acc12.addEventListener("click",function(){
+  console.log("in button acc12 click")
+
+  i=12
+  description(i);
+});
+
+
+acc13.addEventListener("click",function(){
+  i=13
+  console.log("in button acc13 click" + i);
+
+  description(i);
+});
+
+acc14.addEventListener("click",function(){
+  i=14
+  console.log("in button acc14 click" + i);
+
+  description(i);
+});
+
+
+acc21.addEventListener("click",function(){
+  i=21
+  console.log("in button acc21 click" + i);
+
+  description(i);
+});
+
+
+acc22.addEventListener("click",function(){
+  i=22
+  console.log("in button acc22 click" + i);
+
+  description(i);
+});
+
+
+acc23.addEventListener("click",function(){
+  i=23
+  console.log("in button acc23 click" + i);
+
+  description(i);
+});
+
+
+acc24.addEventListener("click",function(){
+  i=14
+  console.log("in button acc24 click" + i);
+
+  description(i);
+});
+
+acc31.addEventListener("click",function(){
+  i=31
+  console.log("in button acc31 click" + i);
+
+  description(i);
+});
+
+
+acc32.addEventListener("click",function(){
+  i=32
+  console.log("in button acc32 click" + i);
+
+  description(i);
+});
+
+function description(ii){
+  console.log("in desc");
+  console.log(ii);
+  if(ii==11){
+    query('select paper_ID,paper_title,paper_published_year,paper_abstract from Papers_SE limit 5;');
+  }
+  else if (ii == 12){
+    query("select pse.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_Affiliations_SE p,Papers_SE pse, Authors_SE a where pse.paper_ID = p.paper_ID and  p.author_ID=a.author_ID limit 10;");
+  }
+  else if (ii == 13){
+    
+    query("select p1.paper_title as Paper_Title , pc.paper_published_year as Paper_published_year, p2.paper_title as Cited_Paper, pc.paper_cite_published_year as Paper_Citation_Published_Year from Paper_Citations_SE pc,Papers_SE p1, Papers_SE p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by pc.paper_published_year desc limit 10 ;");
+  }
+  else if(ii == 14){
+    query("select author_name as Author , author_keywords as Key_Words from Authors_SE limit 10;");
+  }
+  else if(ii == 21){
+    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AM limit 10;");
+  }
+  else if(ii == 22){
+    query("select pam.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_AM p,Papers_AM pam, Authors_AM a where pam.paper_ID = p.paper_ID and  p.author_ID=a.author_ID limit 10;");
+  }
+  else if(ii == 23){
+    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AM pc,Papers_AM p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by p1.paper_year desc limit 10 ;");
+  }
+  else if(ii == 24){
+    query("select author_name as Author , author_keywords as Key_Words from Authors_AM limit 10;");
+  }
+  else if(ii == 31){
+    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AI limit 10;");
+  }
+  else if(ii == 32){
+    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AI pc,Papers_AI p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by p1.paper_year limit 10 ;");
+  }
+}
+
+function table11(res){
+  var table = "";
+  console.log("try11")
+  table = '<tr>'
+  for (x in res[0]) 
+      table +='<th>'+ x +'</th>';
+  table +='</tr>';
+  for(var a=0; a < res.length; a++){  
+    table += "<tr>";
+    for (var key in res[a]) {
+      if (res[a].hasOwnProperty(key)) {
+          table += "<td>" + res[a][key] +"</td>";
+      }
+    }
+    table += "<tr/>";
+  }
+  console.log(Object.keys(res)[1]);
+   
+  document.getElementById("data").innerHTML =table;
+}
+
+
+
+
+function selected() {
+  var x = document.getElementById("mySel").value;
+  document.getElementById("demo1").innerHTML = "You selected: " + x;
+  if( x === "Publication Growth") {
+      var y = document.getElementById("q1");
+      y.style.display = "block";
+      document.getElementById("q2").style.display= "none";
+      document.getElementById("q3").style.display= "none";
+      document.getElementById("q4").style.display= "none";
+      document.getElementById("q5").style.display= "none";
+  }
+  else if( x === "Query2") {
+    var y = document.getElementById("q2");
+    y.style.display = "block";
+    document.getElementById("q1").style.display= "none";
+    document.getElementById("q3").style.display= "none";
+    document.getElementById("q4").style.display= "none";
+    document.getElementById("q5").style.display= "none";
+  }
+  else if( x === "Depth of related Study") {
+    var y = document.getElementById("q3");
+    y.style.display = "block";
+    document.getElementById("q1").style.display= "none";
+    document.getElementById("q2").style.display= "none";
+    document.getElementById("q4").style.display= "none";
+    document.getElementById("q5").style.display= "none";
+  }
+  else if( x === "Self Citations") {
+    var y = document.getElementById("q4");
+    y.style.display = "block";
+    document.getElementById("q1").style.display= "none";
+    document.getElementById("q3").style.display= "none";
+    document.getElementById("q2").style.display= "none";
+    document.getElementById("q5").style.display= "none";
+  }
+  else if( x === "Myopic vs Deep Referencing ") {
+    var y = document.getElementById("q5");
+    y.style.display = "block";
+    document.getElementById("q1").style.display= "none";
+    document.getElementById("q3").style.display= "none";
+    document.getElementById("q4").style.display= "none";
+    document.getElementById("q2").style.display= "none";
+  }
+}
