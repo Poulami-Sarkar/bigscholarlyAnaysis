@@ -1,12 +1,13 @@
 body {
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: rgb(236, 235, 245);   
+    background-color: rgb(255, 255, 255);   
 
 	padding: 0px 0;
     margin: 0 px;
     font-family: 'Trebuchet MS', 'Helvetica';
-    color : rgba(17, 1, 1, 0.897);
+
+    color : rgb(1, 1, 1);
 }
 
 
@@ -65,23 +66,24 @@ year
 
 /* Style the counter cards */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0); /* this adds the "card" effect */
   padding: 16px;
   text-align: center;
   background-color: #f1f1f1;
 }
 
 .main{
-    padding: 20px;
+    padding: 0px;
 }
 
 .btn{
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .divQuery {
     margin: 80px;
 }
+
 
 /*
 .info{
@@ -95,11 +97,22 @@ year
 }
 
 */
+#myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+/* 
 img.dataImg{
     position: relative;
     width:100%;
     height:300px;
-}
+} */
 
 
 
@@ -109,29 +122,48 @@ h4 {
     backface-visibility: unset;   
 }
 
+
 .modal {
     display: none;
-    position: relative;
+    position: absolute;
+    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    color: #f1f1f1c9;
+    color: #00000060;
     text-align: left;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
-}
-/*
-.modal-content{
-    background-color: #fefefe;
-    margin: 15% auto; 
-    border: 1px solid #888;
-    width: 100%;
-    padding: 20px;
+    background-color: rgba(0, 0, 0,0.2); 
 
 }
-*/
+
+.modal-content{
+    background-color: rgba(0, 0, 0, 0.84);
+    color: white;
+    border: 1px solid #888;
+    overflow: auto;
+    width: 60%;
+    margin-left: 250px;
+    padding: 20px
+
+}
+
+#title {
+    text-align: center;
+    font-family: "Lato",sans-serif;
+
+    color:white;
+    position: absolute;
+    top:40%;
+    left:50%;
+    transform: translate(-50%,-50%);
+
+    font-size: 50px;
+    display: block;
+    width: 1000px;
+    letter-spacing: 3px;
+}
+
 
 .close {
     color: white;
@@ -149,8 +181,8 @@ h4 {
 
 
 .accordion {
-    background-color: rgb(128, 127, 209);
-    color: rgb(29, 28, 28);
+    background-color: rgb(187, 187, 195);
+    color: rgb(0, 0, 0);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -162,20 +194,20 @@ h4 {
 }
 
 .accordion:active, .accordion:hover {
-    background-color: rgb(152, 162, 218);
+    background-color: rgb(93, 94, 95);
 }
 
 .panel {
     padding: 0 18px;
-    background-color: rgb(128, 127, 209);
-    color: rgb(29, 28, 28);
+    background-color: rgb(7, 7, 7);
+    color: rgb(255, 255, 255);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
 
 .accordion1 {
-    background-color: rgba(130, 147, 240,0.2);
+    background-color: rgba(118, 119, 124, 0.377);
     color: whitesmoke;
     cursor: pointer;
     padding: 18px;
@@ -187,8 +219,8 @@ h4 {
     transition: 0.4s;
 }
 
-.abt, .active, .accordion1:hover {
-    background-color: rgba(175, 165, 206,0.2);
+.abt, accordion:active, .accordion:visited , .accordion1:hover {
+    background-color: rgba(190, 190, 190, 0.1);
 }
 
 table {
@@ -199,7 +231,7 @@ table {
 
 th {
     border: 2px solid black;
-    background-color: rgba(12, 20, 138, 0.6);
+    background-color: rgba(0, 0, 0, 0.904);
     color: white;
 }
 
@@ -209,7 +241,26 @@ tr, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: rgba(169, 193, 212, 0.6)}
+tr:nth-child(even){background-color: rgba(206, 215, 223, 0.698)}
  
 
-
+#btn44 {
+    text-align: center;
+    width: 100%;
+    font: bold 20px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #000000;
+    padding: 6px 6px 6px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+  }
+.bg-img{
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(data1.jpg);
+    height:100vh;
+    background-position: center;
+    background-size: cover;
+}
