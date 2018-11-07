@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import <link rel="stylesheet" href="/w3css/3/w3.css">-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"> 
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+</head>
+
+
+
+<body>
+    <ul class="topnav tabs">
+            <li class="tab"><a class="active " href="#home">Home</a></li>
+            <li class="tab">
+                <a href="#about">About</a>
+            </li>
+            <li class="tab">
+                <a href="#analysis">Analysis</a>
+            </li>
+    </ul>
+    <div class="main">        
+        <div id="home" class="col s12">
+           <div>
+                <!-- Slide Show -->
+                <section class="bg-img">
+                
+                </section>
+                <div>
+                    <h2 class="dataText" id="title" >BIG &nbsp; SCHOLARLY &nbsp; DATA &nbsp; ANALYSIS</h2>                
+                </div> 
+                <div>
+                    <div >
+                            <h3 class="large-font" style="text-align:center;font-family: 'Lato', sans-serif;" >What is Big Scholarly Data?</h3>
+                    </div>
+                    <p style="color:rgb(22, 22, 22); text-align: center; font-size:24px ; font-family: 'Lato', sans-serif;">
+                        Big Scholarly Data is coined for the rapidly growing scholarly data, which contains information including millions of authors, papers, citations, figures, tables, as well as scholarly networks and digital libraries. Nowadays, various scholarly data can be easily accessed and powerful data analysis technologies are being developed, which enable us to look into science itself with a new perspective.
+                    
+                    </p>
+                </div>
+           </div>
+        </div>
+        
+        <div id="about"class="abt">
+            <div id="about"class="abt">
+                    <section class="bg-img2">
+                
+                        </section>
+                <div id ="aboutContent">
+                    <h2 style="text-align:center;">Know your database</h2>
+                    <!--<p id="paraBtnInfo" style="text-align:center;">Click the button to know what the database contains:</p>-->
+                    <!-- Trigger/Open The Modal -->
+                        <!-- The Modal -->
+                    <div id="infoModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h3>Tables</h3>
+                            </div>
+                            <div class="modal-body">
+                                <div id="allTables" style="width:350px;height:300px;">
+                                    <h5>
+                                            Authors_AM                    <br />
+                                            Papers_AM                     <br />
+                                            Paper_Citations_AM            <br />
+                                            Paper_Author_AM               <br />                                                    
+                                            Aminer_cite_se                <br />
+                                            Authors_SE                    <br />
+                                            Papers_SE                     <br />
+                                            Affiliations_SE               <br />
+                                            Paper_Citations_SE            <br /> 
+                                            Paper_Author_Affiliations_SE  <br />
+                                            Venues_SE                     <br />
+                                            Fields_Of_Study_SE            <br />
+                                            DocTopic_se_cuml_1975_2017_60 <br />
+                                            Papers_AI                     <br/>
+                                            Paper_Citations_AI            <br />
+                                    </h5>
+                                </div>
+                            </div>        
+                        </div>
+
+                    </div> <!--end of infoModal --> 
+
+                    
+                    <button id="infoBtn" style="text-align:center;width:100%;font: italic 24px Arial;color: black;">Show Database Information</button>
+                    <p><b><i>Click on the buttons to know Table Details</i></b></p>
+                    <div>
+                        <button class="accordion" id = "acc1">"SE" : Papers from all domains of Software Engineering</button>
+                        <div class="panel">
+    
+                                <button class="accordion1" id = "acc11">List of papers Published Papers: Papers_SE</button>                            
+    
+                                <button class="accordion1" id = "acc12">Papers and their Authors : Paper_Author_SE</button>
+                    
+                                <button class="accordion1" id = "acc13">Paper and its citations: Paper_Citations_SE</button>
+                                
+                                <button class="accordion1" id = "acc14">List of Authors: Authors_SE</button>                            
+                        </div>
+    
+                        <button class="accordion" id = "acc2">"AM" : Papers from all domains of all domains of Computer Science</button>
+                        <div class="panel">
+                            <button class="accordion1" id ="acc21">List of published papers: Papers_AM</button>
+                            
+                            <button class="accordion1" id ="acc22">Papers and their Authors : Paper_Author_Affiliations_SE</button>
+                                        
+                            <button class="accordion1" id ="acc23">Paper and its citations: Paper_Citations_SE</button>
+                            
+                            <button class="accordion1" id ="acc24">List of Authors: Authors_SE</button>
+                            
+                        </div>                    
+    
+                        <button class="accordion" id ="acc3">"AI" : papers from all domains of AI and ML</button>
+                        <div class="panel">
+                            
+                            <button class="accordion1" id ="acc31">List of published papers: Papers_AI</button>
+    
+                            <button class="accordion1" id ="acc32">Paper and its citations: Paper_Citations_AI</button>
+                            
+                        </div>  
+                        
+                    </div>
+                    <div>
+                        <button id="btn44">
+                                <a href="#information" style="color:black;" onclick="dispTextarea()"><em>Click here to know the contribution of various authors</em></a>
+                        </button>
+                    </div>
+                    <div id="information">
+                            <div id="paperCount1" style="display:none;"> 
+                                <input type="number" id="myInput" style="color:black;" onkeyup="myFunction()" placeholder=" Search for no of papers published by authors from SE">
+                                <table id="paperCount">
+                        
+                                </table>
+                            </div>
+                    </div>
+                    <div id="data1">
+                        <!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">-->
+                        <table id="data">
+                
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <div id="analysis" class="col s12">
+            <div class ="row">
+                <div class="main-tab">
+                        <select id="mySel" onchange="selected()">
+                            <option class='main-tab-option' value="" disabled selected>Choose your option</option>
+                            <option value="Publication Growth" id = "publication">Publication Growth</option>
+                            <option value="Authors/Paper and Papers/Author" id = "query2">Authors/Paper and Papers/Author</option>
+                            <option value="Depth of related Study" id = "depth">Depth of related Study</option>
+                            <option value="Self Citations" id = "self">Self Citations</option>
+                            <option value="Myopic vs Deep Referencing " id = "referencing">Myopic vs Deep Referencing </option>
+                        </select>
+                        <h3 id = "demo1" style="color:rgb(107, 25, 25)"></h3>
+                        
+                    </div>
+             </div>    
+            <div class ="row">
+                    <div class='divQuery' id = "q1" style="display:none;" >
+                        <span >
+                            <h4>Publication Growth:</h4>
+                            <p>How many years did it take for the publication volume to double</p>
+                        </span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        
+                        </form>
+                        <div class='buttons col s3'>
+                            <button class ="teal darken-2 btn btn1" type="button" >Click Me!</button>                    
+                        </div>
+                    </div>           
+                    <div class='divQuery' id = "q2" style="display:none;">
+                        <span>
+                            <h4>Authors/Paper and Papers/Author</h4>
+                            <p> i) avg. number of authors per paper in each year <br> ii) average number of papers published by an author each year</p>
+                        </span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se2'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am2' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                            
+                        <div class='buttons col s3'>
+                            <button class ="teal darken-2 btn btn2" type="button" >Click Me!</button>                    
+                        </div>
+                    </div>
+                    <div class='divQuery' id = "q3" style="display:none;">
+                        <span ><h4>Depth of Related Work Study:</h4>
+                            <p> The average number of citations per paper published in a given year and plot this average number across the years</p>
+                            </span>
+                            <div class='buttons col s2'>
+                                <button class ="teal darken-2 btn btn3" type="button" >Click Me!</button>                    
+                            </div>
+                    </div>
+                    <div class='divQuery' id = "q4" style="display:none;">
+                        <span> <h4>Self-citation: </h4>
+                            <p>In this analysis, you check whether scientists are doing self-citations in an increasing manner.</p>
+                        </span>
+                        <form action="#">
+                            <p>
+                                <label>
+                                <input type="checkbox" id='se2'/>
+                                <span >SE</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                <input type="checkbox" id='am2' />
+                                <span>AM</span>
+                                </label>
+                            </p>
+                        </form>
+                                    
+                        <div class='buttons col s2'>
+                            <button class ="teal darken-2 btn btn4" type="button" >Click Me!</button>                    
+                        </div>
+                    </div>
+                    <div class='divQuery' id = "q5" style="display:none;">
+                        <span><h4>Myopic vs. Deep referencing: </h4>
+                            <p>How many years back did authors look back in the published literature?</p></span>
+
+                            <div class='buttons col s2'>
+                                <button class ="teal darken-2 btn btn5" type="button" >Click Me!</button>                    
+                            </div> 
+                    </div> 
+                            
+            </div>
+            <div class="row">        
+            </div>
+            <div class="row">    
+                <div class=' col s6' id = "plot 0">
+                    <label style=" color: blanchedalmond; display: none;">SE</label>
+                    <div id="plot0" style="width:500px;height:300px;"></div>
+                </div>
+                <div class=' col s6' id = 'plot1'>
+                    <label  style=" color: blanchedalmond; display:none;">AM</label>
+                    <div id="plot1" style="width:500px;height:300px;"></div>
+                    
+                </div>
+            </div>
+           
+        </div>
+    
+    </div>    
+  
+</div><!--Should we add the analysis part under the main class -->
+    
+<!---Removed a closing div tag-->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+<script src= "main.js"></script>
+</body>
+</html>
