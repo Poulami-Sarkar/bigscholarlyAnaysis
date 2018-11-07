@@ -10,7 +10,9 @@ body {
     color : rgb(1, 1, 1);
 }
 
+.btn{
 
+}
 .main-tab-option {
     font-size: 22px;
 }
@@ -107,12 +109,12 @@ year
     border: 1px solid #ddd; /* Add a grey border */
     margin-bottom: 12px; /* Add some space below the input */
 }
-/* 
+
 img.dataImg{
     position: relative;
     width:100%;
     height:300px;
-} */
+}
 
 
 
@@ -257,7 +259,16 @@ tr:nth-child(even){background-color: rgba(206, 215, 223, 0.698)}
     border-bottom: 1px solid #CCCCCC;
     border-left: 1px solid #CCCCCC;
   }
+
 .bg-img{
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(data1.jpg);
+    height:100vh;
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-img2{
     position: relative;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(data1.jpg);
     height:100vh;
