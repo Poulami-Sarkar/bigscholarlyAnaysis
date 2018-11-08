@@ -141,6 +141,7 @@ $('.btn4').on('click', function() {
   console.log(messageToDisplay)
   //}
 });
+
 $('.btn5').on('click', function() {
   Plotly.purge($('#plot0'));
   //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
@@ -197,7 +198,12 @@ function onLoad() {
     console.log(messageToDisplay);
     //display2(messageToDisplay,1);
   }
-  else{
+  else if( i == 4){
+    console.log("table4 will be calledx  ")
+
+    table4(messageToDisplay);
+  }
+  else{ 
     table11(messageToDisplay);
   }
 }
@@ -403,12 +409,12 @@ function query (str){
   http.send()   ;  
 }
 
-/*
+
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('select');
   var instances = M.FormSelect.init(elems, options);
 });
-*/
+
 // Or with jQuery
 
 $(document).ready(function(){
@@ -423,20 +429,20 @@ $(document).ready(function(){
 
 
 // Automatic Slideshow - change image every 3 seconds
-var myIndex = 0;
-carousel();
+// var myIndex = 0;
+// carousel();
 
-function carousel() {
-    var i;
-    var x = document.getElementsByClassName("dataImg");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";
-    }
-    myIndex++;
-    if (myIndex > x.length) {myIndex = 1}
-    x[myIndex-1].style.display = "block";
-    setTimeout(carousel, 2500);
-}
+// function carousel() {
+//     var i;
+//     var x = document.getElementsByClassName("dataImg");
+//     for (i = 0; i < x.length; i++) {
+//        x[i].style.display = "none";
+//     }
+//     myIndex++;
+//     if (myIndex > x.length) {myIndex = 1}
+//     x[myIndex-1].style.display = "block";
+//     setTimeout(carousel, 2500);
+// }
 
 // Get the modal
 var modal = document.getElementById("infoModal");
@@ -574,43 +580,94 @@ acc32.addEventListener("click",function(){
   description(i);
 });
 
+btn44.addEventListener("click",function(){
+  i = 4;
+  console.log("paper count");
+  description(i);
+
+}); 
+
 function description(ii){
   console.log("in desc");
   console.log(ii);
   if(ii==11){
-    query('select paper_ID,paper_title,paper_published_year,paper_abstract from Papers_SE limit 5;');
+    query('select paper_ID,paper_title,paper_published_year,paper_abstract from Papers_SE order by rand() limit 50;');
   }
   else if (ii == 12){
-    query("select pse.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_Affiliations_SE p,Papers_SE pse, Authors_SE a where pse.paper_ID = p.paper_ID and  p.author_ID=a.author_ID limit 10;");
+    query("select pse.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_Affiliations_SE p,Papers_SE pse, Authors_SE a where pse.paper_ID = p.paper_ID and  p.author_ID=a.author_ID order by rand() limit 50;");
   }
   else if (ii == 13){
     
-    query("select p1.paper_title as Paper_Title , pc.paper_published_year as Paper_published_year, p2.paper_title as Cited_Paper, pc.paper_cite_published_year as Paper_Citation_Published_Year from Paper_Citations_SE pc,Papers_SE p1, Papers_SE p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by pc.paper_published_year desc limit 10 ;");
+    query("select p1.paper_title as Paper_Title , pc.paper_published_year as Paper_published_year, p2.paper_title as Cited_Paper, pc.paper_cite_published_year as Paper_Citation_Published_Year from Paper_Citations_SE pc,Papers_SE p1, Papers_SE p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by rand() desc limit 50 ;");
   }
   else if(ii == 14){
-    query("select author_name as Author , author_keywords as Key_Words from Authors_SE limit 10;");
+    query("select author_name as Author , author_keywords as Key_Words from Authors_SE order by rand()limit 50;");
   }
   else if(ii == 21){
-    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AM limit 10;");
+    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AM order by rand() limit 50;");
   }
   else if(ii == 22){
-    query("select pam.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_AM p,Papers_AM pam, Authors_AM a where pam.paper_ID = p.paper_ID and  p.author_ID=a.author_ID limit 10;");
+    query("select pam.paper_title as 'Paper_Title',a.author_name as Author from Paper_Author_AM p,Papers_AM pam, Authors_AM a where pam.paper_ID = p.paper_ID and  p.author_ID=a.author_ID order by rand() limit 50;");
   }
   else if(ii == 23){
-    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AM pc,Papers_AM p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by p1.paper_year desc limit 10 ;");
+    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AM pc,Papers_AM p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by rand() limit 50 ;");
   }
   else if(ii == 24){
-    query("select author_name as Author , author_keywords as Key_Words from Authors_AM limit 10;");
+    query("select author_name as Author , author_keywords as Key_Words from Authors_AM order by rand() limit 50;");
   }
   else if(ii == 31){
-    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AI limit 10;");
+    query("select paper_id as Paper_ID ,paper_title as Paper_Title ,paper_year as Published_Year from Papers_AI order by rand() limit 50;");
   }
   else if(ii == 32){
-    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AI pc,Papers_AI p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by p1.paper_year limit 10 ;");
+    query("select p1.paper_title as Paper_Title , p1.paper_year as Paper_published_year, p2.paper_title as Cited_Paper, p2.paper_year as Paper_Citation_Published_Year from Paper_Citations_AI pc,Papers_AI p1, Papers_AM p2 where pc.paper_ID = p1.paper_ID and pc.paper_cite_ID = p2.paper_ID order by rand() limit 50 ;");
+  }
+  else if(ii = 4){
+    query("select * from Author_Paper_Count_SE order by rand() limit 100;");
   }
 }
 
 function table11(res){
+  var y = document.getElementById("paperCount1");
+  if(y.style.display="block")
+    y.style.display = "none";
+
+    var z = document.getElementById("data1");
+    if(z.style.display="none")
+      z.style.display = "block";
+  
+  
+  
+    var table = "";
+  console.log("try11111")
+  table = '<tr>'
+  for (x in res[0]) 
+      table +='<th>'+ x +'</th>';
+  table +='</tr>';
+  for(var a=0; a < res.length; a++){  
+    table += "<tr>";
+    for (var key in res[a]) {
+      if (res[a].hasOwnProperty(key)) {
+          table += "<td>" + res[a][key] +"</td>";
+      }
+    }
+    table += "<tr/>";
+  }
+  console.log(Object.keys(res)[1]);
+  document.getElementById("data").innerHTML =table;
+  console.log("check complete................!")
+}
+
+
+function table4(res){
+  var y = document.getElementById("data1");
+  if(y.style.display="block")
+    y.style.display = "none ";
+  
+  y = document.getElementById("paperCount1");
+  if(y.style.display="none")
+    y.style.display = "block";
+  
+  
   var table = "";
   console.log("try11")
   table = '<tr>'
@@ -628,9 +685,8 @@ function table11(res){
   }
   console.log(Object.keys(res)[1]);
    
-  document.getElementById("data").innerHTML =table;
+  document.getElementById("paperCount").innerHTML =table;
 }
-
 
 
 
@@ -645,7 +701,7 @@ function selected() {
       document.getElementById("q4").style.display= "none";
       document.getElementById("q5").style.display= "none";
   }
-  else if( x === "Query2") {
+  else if( x === "Authors/Paper and Papers/Author") {
     var y = document.getElementById("q2");
     y.style.display = "block";
     document.getElementById("q1").style.display= "none";
@@ -678,3 +734,24 @@ function selected() {
     document.getElementById("q2").style.display= "none";
   }
 }
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("paperCount");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
