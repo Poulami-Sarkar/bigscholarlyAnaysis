@@ -49,9 +49,6 @@
         
         <div id="about"class="abt">
             <div id="about"class="abt">
-                    <section class="bg-img2">
-                
-                        </section>
                 <div id ="aboutContent">
                     <h2 style="text-align:center;">Know your database</h2>
                     <!--<p id="paraBtnInfo" style="text-align:center;">Click the button to know what the database contains:</p>-->
@@ -83,6 +80,9 @@
                                             Papers_AI                     <br/>
                                             Paper_Citations_AI            <br />
                                     </h5>
+                                    <table id="all-tables">
+                
+                                    </table>
                                 </div>
                             </div>        
                         </div>
@@ -154,18 +154,17 @@
         
         <div id="analysis" class="col s12">
             <div class ="row">
-                <div class="main-tab">
-                        <select id="mySel" onchange="selected()">
-                            <option class='main-tab-option' value="" disabled selected>Choose your option</option>
-                            <option value="Publication Growth" id = "publication">Publication Growth</option>
-                            <option value="Authors/Paper and Papers/Author" id = "query2">Authors/Paper and Papers/Author</option>
-                            <option value="Depth of related Study" id = "depth">Depth of related Study</option>
-                            <option value="Self Citations" id = "self">Self Citations</option>
-                            <option value="Myopic vs Deep Referencing " id = "referencing">Myopic vs Deep Referencing </option>
-                        </select>
-                        <h3 id = "demo1" style="color:rgb(107, 25, 25)"></h3>
-                        
-                    </div>
+                <div class="main-tab" style="padding: 50px">
+                    <select id="mySel" onchange="selected()">
+                        <option class='main-tab-option' value="" disabled selected>Choose your option</option>
+                        <option value="Publication Growth" id = "publication">Publication Growth</option>
+                        <option value="Authors/Paper and Papers/Author" id = "query2">Authors/Paper and Papers/Author</option>
+                        <option value="Depth of related Study" id = "depth">Depth of related Study</option>
+                        <option value="Self Citations" id = "self">Self Citations</option>
+                        <option value="Myopic vs Deep Referencing " id = "referencing">Myopic vs Deep Referencing </option>
+                    </select>
+                    <h3 id = "demo1" style="color:rgb(107, 25, 25)"></h3>    
+                </div>
              </div>    
             <div class ="row">
                     <div class='divQuery' id = "q1" style="display:none;" >

@@ -43,16 +43,16 @@ app.get('/data', function(req, res){
 });
 
 app.listen(8088);
-console.log('Server running at http://127.0.0.1:8000/');
+console.log('Server running at http://127.0.0.1:8088/');
 
 app.get('/query', function (req, res) {
   query = req.query.q
     con.query(query, function(err, resp, fields)
     {
             console.log('Connection result error '+err);
-            console.log('no of records is '+resp.length);
+            //console.log('no of records is '+resp.length);
             output =  JSON.stringify(resp)
-            console.log(resp[0].year);
-            res.send(resp);
+            if (resp.length >0)
+              res.send(resp);
     });  
 })
