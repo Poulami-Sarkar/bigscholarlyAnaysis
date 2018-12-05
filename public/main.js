@@ -102,7 +102,10 @@ function doublevalues (yval,year){
 $(document).ready(function(){
   $('.tabs').tabs();
 });
-      
+   
+//ANALYSIS QUERIES 
+
+//PUBLICATION GROWTH
 $('.btn1').on('click', function() {
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
@@ -120,7 +123,7 @@ $('.btn1').on('click', function() {
   }
 });
 
-//Authors/paper
+//Authors/paper NATURE OF COLLABORATION
 $('.btn2').on('click', function() {
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
@@ -143,7 +146,7 @@ $('.btn2').on('click', function() {
   }
 });
 
-//Authors/paper
+// DEPTH OF RELATIONED WORK
 $('.btn3').on('click', function() {
   //if($('#se3').is(':checked')){
   console.log("cl");
@@ -155,6 +158,7 @@ $('.btn3').on('click', function() {
   //}
 });
 
+// SELF CITATION
 $('.btn4').on('click', function() {
   //if($('#se3').is(':checked')){
   console.log("cl");
@@ -166,6 +170,7 @@ $('.btn4').on('click', function() {
   //}
 });
 
+// Myopic vs. Deep referencing
 $('.btn5').on('click', function() {
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
@@ -453,46 +458,23 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////////
 
 
-
-// Automatic Slideshow - change image every 3 seconds
-// var myIndex = 0;
-// carousel();
-
-// function carousel() {
-//     var i;
-//     var x = document.getElementsByClassName("dataImg");
-//     for (i = 0; i < x.length; i++) {
-//        x[i].style.display = "none";
-//     }
-//     myIndex++;
-//     if (myIndex > x.length) {myIndex = 1}
-//     x[myIndex-1].style.display = "block";
-//     setTimeout(carousel, 2500);
-// }
-
-// Get the modal
 var modal = document.getElementById("infoModal");
 // Get the button that opens the modal
 var infoBtn = document.getElementById('infoBtn');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+//STORED PROCEDURE
 infoBtn.onclick = function() {
     show_tables_modal = true;
-    //query("call Show_tables();");
-    modal.style.display ="block";
+
+    query("call Show_tables();");
+    //modal.style.display ="block";
 };
 
 $('span').on('click',function(){
     modal.style.display ="none";
 });
-/*
-window.on('click', function(event){
-  if(event.target == modal) {
-      modal.style.display = "none";
-  }
-})
-*/
 
 var acc = document.getElementsByClassName("accordion");
 var i;
@@ -511,22 +493,6 @@ for (i = 0; i < acc.length; i++) {
 }
 
 var acc1 = document.getElementsByClassName("accordion1");
-
-/*
-for (i = 0; i < acc1.length; i++) {
-  console.log(i + "forloop");
-  acc1[i].addEventListener("click", function() {
-    
-    /*var panel1 = this.nextElementSibling;
-    if (panel1.style.maxHeight){
-      panel1.style.maxHeight = null;
-    } else {
-      panel1.style.maxHeight = panel1.scrollHeight+100 + "px";
-    } 
-  });
-}
-*/
-
 
 acc11.addEventListener("click",function() {
   console.log("acc11");
@@ -617,11 +583,8 @@ btn44.addEventListener("click",function(){
 
 }); 
 
-/*myInput.addEventListener('input',function(){
-  var authname = $('#myInput').val();
-  query("select * from Author_Paper_Count_AM where author_id = 'authname';");
-});*/
 
+//ABOUT QUERIES
 function description(ii){
   console.log("in desc");
   console.log(ii);
@@ -750,6 +713,8 @@ function selected() {
     document.getElementById("q2").style.display= "none";
   }
 }
+
+// TRIGGER. TEXTBOX INPUT
 function myFunction() {
   // Declare variables
   var filter;
