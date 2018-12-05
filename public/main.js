@@ -104,8 +104,8 @@ $(document).ready(function(){
 });
       
 $('.btn1').on('click', function() {
-  Plotly.purge($('#plot0'));
-  Plotly.purge($('#plot1'));
+  Plotly.purge(document.getElementById('plot0'));
+  Plotly.purge(document.getElementById('plot1'));
   if($('#se').is(':checked')){
     query('SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);');
     disp[0] =1;
@@ -122,20 +122,23 @@ $('.btn1').on('click', function() {
 
 //Authors/paper
 $('.btn2').on('click', function() {
-  Plotly.purge($('#plot0'));
-  Plotly.purge($('#plot1'));
+  Plotly.purge(document.getElementById('plot0'));
+  Plotly.purge(document.getElementById('plot1'));
   if($('#se2').is(':checked')){
-    Plotly.purge($('#plot0'));
-    query('select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;');
+    
+    query('select paper_year year, avg(authors) as avg from SE where paper_year < 2016  group by paper_year;');
+    //query('select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;');
     console.log(messageToDisplay);
     query('select paper_published_year year, avg(papers) as avg from (SELECT paper_published_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by paper_published_year, author_ID) t2 group by paper_published_year;');   
     disp2[0] =2;
     console.log(messageToDisplay)
   }
   if($('#am2').is(':checked')){
-    Plotly.purge($('#plot1'));
+    
     query('select paper_year year, avg(papers) avg from (SELECT paper_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_year, author_ID) t2 group by paper_year;');   
-    query('select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;');
+    //query('select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;');
+    query('select paper_year year, avg(authors) avg from AM where paper_year < 2016 group by paper_year;'); 
+
     disp2[1] =2;
   }
 });
@@ -168,7 +171,8 @@ $('.btn5').on('click', function() {
   Plotly.purge(document.getElementById('plot1'));
   //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
   query('select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year;');
-  disp5[0] =1;
+  query('select paper_year, avg(difference) difference from( select paper_year ,  paper_ID,  paper_year-min(paper_cite_published_year) difference from Citations_AI where paper_year>1970 group by paper_ID,paper_year having paper_year>min(paper_cite_published_year) order by paper_year) t group by paper_year;');  
+  disp5[0] =2;
   console.log(messageToDisplay)
   //}
 });
@@ -338,7 +342,7 @@ function display3(parsedResponse,no){
     name: 'se'
   };
 
-   Plotly.purge(TESTER);
+   //Plotly.purge(TESTER);
    Plotly.plot( TESTER, [papers,authors,markers],layout,{responsive: true} );
    disp3[no] =0;
    // append child (with text value o messageToDisplay for instance) here or do some more stuff
@@ -381,6 +385,14 @@ function display5(parsedResponse,no){
     xval.push(parsedResponse[i].paper_year);
     yval.push(parsedResponse[i].difference);
   }   
+
+  if(disp5[no] == 2){
+    //Plotly.purge(TESTER);
+    var nametitle = 'SE';
+  }
+  else if(disp5[no]==1){
+    var nametitle= 'AI';
+  } 
   TESTER = document.getElementById('plot'+no);
   var markers = {
    x:(doublevalues(yval,xval)[0]),
@@ -393,15 +405,13 @@ function display5(parsedResponse,no){
    x: xval,
    y: yval,
    mode: 'lines',
-   name: 'year difference'
+   name: nametitle
  };
 
-  Plotly.purge(TESTER);
   Plotly.plot( TESTER, [papers,markers],layout,{responsive: true} );
-  disp5[no] =0;
+  disp5[no] =disp5[no]-1;
   // append child (with text value o messageToDisplay for instance) here or do some more stuff
 }
-
 
 function onError() {
   // handle error here, print message perhaps
@@ -422,7 +432,7 @@ function query (str){
   
   http.onreadystatechange = function() {//Call a function when the state changes.
       if(http.readyState == 4 && http.status == 200) {
-          //alert(http.responseText);
+          alert(http.responseText);
           result=http.responseText;
       }
   }
@@ -601,11 +611,16 @@ acc32.addEventListener("click",function(){
 btn44.addEventListener("click",function(){
   i=4;
   $('#myInput').css("display","block");
-  query("select * from Author_Paper_Count_AM order by rand() limit 10;");
+  query("select * from Author_Paper_Count_AM order by author_id limit 10;");
   console.log("paper count");
   //description(i);
 
 }); 
+
+/*myInput.addEventListener('input',function(){
+  var authname = $('#myInput').val();
+  query("select * from Author_Paper_Count_AM where author_id = 'authname';");
+});*/
 
 function description(ii){
   console.log("in desc");
