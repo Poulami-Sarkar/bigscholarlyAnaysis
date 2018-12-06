@@ -209,19 +209,16 @@ function onLoad() {
     console.log(disp2);
     messageToDisplay = JSON.parse(result);
     display2(messageToDisplay,1);
-    //display2(messageToDisplay,1);
   }  
   else if (disp3[0] !=0){
     console.log(disp3);
     display3(messageToDisplay,0);
     console.log(messageToDisplay);
-    //display2(messageToDisplay,1);
   }
   else if (disp4[0] !=0){
     console.log(disp4);
     display4(messageToDisplay,0);
     console.log(messageToDisplay);
-    //display2(messageToDisplay,1);
   }
   else if (disp5[0] !=0){
     console.log(disp5);
@@ -288,7 +285,7 @@ function display2(parsedResponse,no){
     yval.push(parsedResponse[i].avg);
   }
   yval=smooth(yval, 0.99);
-  //
+  
   if (disp2[no]==2){  
     Plotly.purge(TESTER); 
     var nametitle = 'avgAuth_per_paper';
@@ -494,6 +491,7 @@ for (i = 0; i < acc.length; i++) {
 
 var acc1 = document.getElementsByClassName("accordion1");
 
+
 acc11.addEventListener("click",function() {
   console.log("acc11");
   console.log("event Listener");
@@ -577,7 +575,8 @@ acc32.addEventListener("click",function(){
 btn44.addEventListener("click",function(){
   i=4;
   $('#myInput').css("display","block");
-  query("select * from Author_Paper_Count_AM order by author_id limit 10;");
+  query("select c.author_ID, c.author_name,p.author_affiliation,c.paper_count from Author_Paper_Count_AM c left join Authors_AM p  on p.author_ID =c.author_ID order by paper_count desc limit 20;");
+  //query("select * from Author_Paper_Count_AM order by author_id limit 10;");
   console.log("paper count");
   //description(i);
 
@@ -722,6 +721,7 @@ function myFunction() {
   console.log(filter);
   i = 4;
   if (filter !='undefined') 
-    query("SELECT * FROM Author_Paper_Count_AM WHERE LOWER(author_ID) = '"+ filter + "';");
-  //query("select a.author_ID as ID ,a.author_name as Author,pam.paper_title as 'Paper_Title' from Paper_Author_AM p,Papers_AM pam, Authors_AM a where pam.paper_ID = p.paper_ID and  p.author_ID=a.author_ID and LOWER(a.author_ID) = '"+ filter + "';"); 
+    //query("SELECT * FROM Author_Paper_Count_AM WHERE LOWER(author_ID) = '"+ filter + "';");
+    query("select c.author_ID, c.author_name,p.author_affiliation,c.paper_count from Author_Paper_Count_AM c , Authors_AM p  where p.author_ID =c.author_ID and LOWER(c.author_ID) = '"+ filter + "';");
+
 }
