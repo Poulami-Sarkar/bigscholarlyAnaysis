@@ -29,7 +29,7 @@ var layout = {
         },
 
   //opacity=0.1,  
-  paper_bgcolor: 'rgba(0.1,0.1,0.1,0.1)',
+  paper_bgcolor: 'rgba(0.8,0.8,0.8,0.1)',
   plot_bgcolor: 'rgba(0.2,0.2,0.2,0.3)'
 }; 
 
@@ -102,15 +102,15 @@ function doublevalues (yval,year){
 $(document).ready(function(){
   $('.tabs').tabs();
 });
-   
-//ANALYSIS QUERIES 
-
-//PUBLICATION GROWTH
+      
 $('.btn1').on('click', function() {
-  Plotly.purge(document.getElementById('plot0'));
-  Plotly.purge(document.getElementById('plot1'));
+  Plotly.purge($('#plot0'));
+  Plotly.purge($('#plot1'));
   if($('#se').is(':checked')){
-    query('SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);');
+    query('select * from se1plot1');
+/*
+SELECT paper_published_year year, COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paper_published_year);
+*/
     disp[0] =1;
     $(document).ready(function() {
       console.log(messageToDisplay+" click");
@@ -118,66 +118,86 @@ $('.btn1').on('click', function() {
     //display1(messageToDisplay);
   }
   if($('#am').is(':checked')){
-    query('SELECT paper_year year,COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by (paper_year);');
+    query('select * from am1plot2');
+
+/*
+SELECT paper_year year,COUNT(distinct paa.paper_ID) papers, COUNT(distinct author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by (paper_year);
+*/
     disp[1] =1;
   }
 });
 
-//Authors/paper NATURE OF COLLABORATION
+//Authors/paper
 $('.btn2').on('click', function() {
-  Plotly.purge(document.getElementById('plot0'));
-  Plotly.purge(document.getElementById('plot1'));
+  Plotly.purge($('#plot0'));
+  Plotly.purge($('#plot1'));
   if($('#se2').is(':checked')){
-    
-    query('select paper_year year, avg(authors) as avg from SE where paper_year < 2016  group by paper_year;');
-    //query('select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;');
+    Plotly.purge($('#plot0'));
+    query('select * from se2plot1a;');
+/*select paper_published_year year, avg(authors) avg from (SELECT paper_published_year,paa.paper_ID,COUNT(distinct author_ID) authors from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by (paa.paper_ID)) t1 group by paper_published_year;
+*/
     console.log(messageToDisplay);
-    query('select paper_published_year year, avg(papers) as avg from (SELECT paper_published_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by paper_published_year, author_ID) t2 group by paper_published_year;');   
+    query('select * from se2plot1b;');  
+/* select paper_published_year year, avg(papers) as avg from (SELECT paper_published_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_Affiliations_SE paa, Papers_SE p where paa.paper_ID =p.paper_ID and paper_published_year>1970 group by paper_published_year, author_ID) t2 group by paper_published_year; */ 
     disp2[0] =2;
     console.log(messageToDisplay)
   }
   if($('#am2').is(':checked')){
-    
-    query('select paper_year year, avg(papers) avg from (SELECT paper_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_year, author_ID) t2 group by paper_year;');   
-    //query('select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;');
-    query('select paper_year year, avg(authors) avg from AM where paper_year < 2016 group by paper_year;'); 
-
+    Plotly.purge($('#plot1'));
+    query('select * from am2plot2a;');   
+/*
+select paper_year year, avg(papers) avg from (SELECT paper_year, author_ID,COUNT(distinct paa.paper_ID) papers from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_year, author_ID) t2 group by paper_year;
+*/
+    query('select * from am2plot2b;');
+/*
+select paper_year year, avg(authors) avg from (SELECT paper_year, paa.paper_ID,COUNT(distinct paa.author_ID) authors from Paper_Author_AM paa, Papers_AM p where paa.paper_ID =p.paper_ID and paper_year>1970 group by paper_ID) t2 group by paper_year;
+*/
     disp2[1] =2;
   }
 });
 
-// DEPTH OF RELATIONED WORK
+//Authors/paper
 $('.btn3').on('click', function() {
   //if($('#se3').is(':checked')){
   console.log("cl");
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
-  query('select * from (select  paper_year, avg(ai_citations) aiav from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where ai.paper_id =pai.paper_id and pai.paper_year >1970 group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year, avg(se_citations) seav from (select pse.paper_published_year paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se, Papers_SE pse where se.paper_ID =pse.paper_ID and pse.paper_published_year >1970 group by pse.paper_ID) se group by paper_year) t2 on t1.paper_year = t2.paper_year;');
+  query('select * from plot3');
+/* 
+
+select * from (select  paper_year, avg(ai_citations) avai from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where pai.paper_year >1970 and ai.paper_id =pai.paper_id group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year, avg(se_citations) avse from (select paper_published_year paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se where paper_published_year >1970 group by paper_ID,paper_published_year) se group by paper_year) t2 on t1.paper_year = t2.paper_year ;
+
+create table plot3 select * from (select  paper_year p1, avg(ai_citations) aiav from (select pai.paper_year, count(ai.paper_cite_id) ai_citations from Paper_Citations_AI ai, Papers_AI pai where ai.paper_id =pai.paper_id and pai.paper_year >1970 group by pai.paper_id) ai group by paper_year) t1 left JOIN (select  paper_year p2, avg(se_citations) seav from (select pse.paper_published_year pse_paper_year, count(se.paper_cite_ID) se_citations from Paper_Citations_SE se, Papers_SE pse where se.paper_ID =pse.paper_ID and pse.paper_published_year >1970 group by pse.paper_ID) se group by paper_year) t2 on t1.paper_year = t2.paper_year;
+*/
+
+
   disp3[0] =1;
   console.log(messageToDisplay)
   //}
 });
 
-// SELF CITATION
 $('.btn4').on('click', function() {
   //if($('#se3').is(':checked')){
   console.log("cl");
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
-  query('select paper_published_year paper_year, avg(self_cite_percent) avg_self_cite_percent from Papers_SE pse ,(  select t1.paper_ID, nonself/count(paper_cite_ID) self_cite_percent from Paper_Citations_SE t1, (select paper_ID,count(paper_cite_ID) nonself from Paper_Citations_SE pc where exists( select author_ID from Paper_Author_Affiliations_SE where paper_ID=pc.paper_ID and author_ID in  (select author_ID from Paper_Author_Affiliations_SE where pc.paper_ID=paper_cite_ID)) group by paper_ID) t2 where t1.paper_ID = t2.paper_ID group by t1.paper_ID) tout where tout.paper_ID = pse.paper_ID and paper_published_year>1970 group by paper_published_year;');
+  query('select * from plot4;');
+
+
+/* create table plot4 Select paper_published_year paper_year, avg(self_cite_percent) avg_self_cite_percent from Papers_SE pse ,(  select t1.paper_ID, nonself/count(paper_cite_ID) self_cite_percent from Paper_Citations_SE t1, (select paper_ID,count(paper_cite_ID) nonself from Paper_Citations_SE pc where exists( select author_ID from Paper_Author_Affiliations_SE where paper_ID=pc.paper_ID and author_ID in  (select author_ID from Paper_Author_Affiliations_SE where pc.paper_ID=paper_cite_ID)) group by paper_ID) t2 where t1.paper_ID = t2.paper_ID group by t1.paper_ID) tout where tout.paper_ID = pse.paper_ID and paper_published_year>1970 group by paper_published_year;*/
   disp4[0] =1;
   console.log(messageToDisplay)
   //}
 });
 
-// Myopic vs. Deep referencing
 $('.btn5').on('click', function() {
   Plotly.purge(document.getElementById('plot0'));
   Plotly.purge(document.getElementById('plot1'));
   //query('select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year;');
-  query('select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year;');
-  query('select paper_year, avg(difference) difference from( select paper_year ,  paper_ID,  paper_year-min(paper_cite_published_year) difference from Citations_AI where paper_year>1970 group by paper_ID,paper_year having paper_year>min(paper_cite_published_year) order by paper_year) t group by paper_year;');  
-  disp5[0] =2;
+  query('select * from plot5');
+/* select paper_year, avg(difference) difference from( select paper_published_year paper_year,  paper_id,  paper_published_year-min(paper_cite_published_year) difference from Paper_Citations_SE where paper_published_year>1970 group by paper_ID,paper_published_year having paper_published_year>min(paper_cite_published_year) order by paper_published_year) t group by paper_year; */
+
+  disp5[0] =1;
   console.log(messageToDisplay)
   //}
 });
@@ -209,16 +229,19 @@ function onLoad() {
     console.log(disp2);
     messageToDisplay = JSON.parse(result);
     display2(messageToDisplay,1);
+    //display2(messageToDisplay,1);
   }  
   else if (disp3[0] !=0){
     console.log(disp3);
     display3(messageToDisplay,0);
     console.log(messageToDisplay);
+    //display2(messageToDisplay,1);
   }
   else if (disp4[0] !=0){
     console.log(disp4);
     display4(messageToDisplay,0);
     console.log(messageToDisplay);
+    //display2(messageToDisplay,1);
   }
   else if (disp5[0] !=0){
     console.log(disp5);
@@ -285,7 +308,7 @@ function display2(parsedResponse,no){
     yval.push(parsedResponse[i].avg);
   }
   yval=smooth(yval, 0.99);
-  
+  //
   if (disp2[no]==2){  
     Plotly.purge(TESTER); 
     var nametitle = 'avgAuth_per_paper';
@@ -318,7 +341,7 @@ function display3(parsedResponse,no){
    var yval2=[];
 
    for(i=0;i<parsedResponse.length-1;i++){
-     xval.push(parsedResponse[i].paper_year);
+     xval.push(parsedResponse[i].py1);
      yval1.push(parsedResponse[i].aiav);
      yval2.push(parsedResponse[i].seav);
    }   
@@ -344,7 +367,7 @@ function display3(parsedResponse,no){
     name: 'se'
   };
 
-   //Plotly.purge(TESTER);
+   Plotly.purge(TESTER);
    Plotly.plot( TESTER, [papers,authors,markers],layout,{responsive: true} );
    disp3[no] =0;
    // append child (with text value o messageToDisplay for instance) here or do some more stuff
@@ -387,14 +410,6 @@ function display5(parsedResponse,no){
     xval.push(parsedResponse[i].paper_year);
     yval.push(parsedResponse[i].difference);
   }   
-
-  if(disp5[no] == 2){
-    //Plotly.purge(TESTER);
-    var nametitle = 'SE';
-  }
-  else if(disp5[no]==1){
-    var nametitle= 'AI';
-  } 
   TESTER = document.getElementById('plot'+no);
   var markers = {
    x:(doublevalues(yval,xval)[0]),
@@ -407,13 +422,15 @@ function display5(parsedResponse,no){
    x: xval,
    y: yval,
    mode: 'lines',
-   name: nametitle
+   name: 'year difference'
  };
 
+  Plotly.purge(TESTER);
   Plotly.plot( TESTER, [papers,markers],layout,{responsive: true} );
-  disp5[no] =disp5[no]-1;
+  disp5[no] =0;
   // append child (with text value o messageToDisplay for instance) here or do some more stuff
 }
+
 
 function onError() {
   // handle error here, print message perhaps
@@ -434,7 +451,7 @@ function query (str){
   
   http.onreadystatechange = function() {//Call a function when the state changes.
       if(http.readyState == 4 && http.status == 200) {
-          alert(http.responseText);
+          //alert(http.responseText);
           result=http.responseText;
       }
   }
@@ -455,23 +472,46 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////////
 
 
+
+// Automatic Slideshow - change image every 3 seconds
+// var myIndex = 0;
+// carousel();
+
+// function carousel() {
+//     var i;
+//     var x = document.getElementsByClassName("dataImg");
+//     for (i = 0; i < x.length; i++) {
+//        x[i].style.display = "none";
+//     }
+//     myIndex++;
+//     if (myIndex > x.length) {myIndex = 1}
+//     x[myIndex-1].style.display = "block";
+//     setTimeout(carousel, 2500);
+// }
+
+// Get the modal
 var modal = document.getElementById("infoModal");
 // Get the button that opens the modal
 var infoBtn = document.getElementById('infoBtn');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-//STORED PROCEDURE
 infoBtn.onclick = function() {
     show_tables_modal = true;
-
-    query("call Show_tables();");
-    //modal.style.display ="block";
+    //query("call Show_tables();");
+    modal.style.display ="block";
 };
 
 $('span').on('click',function(){
     modal.style.display ="none";
 });
+/*
+window.on('click', function(event){
+  if(event.target == modal) {
+      modal.style.display = "none";
+  }
+})
+*/
 
 var acc = document.getElementsByClassName("accordion");
 var i;
@@ -490,6 +530,21 @@ for (i = 0; i < acc.length; i++) {
 }
 
 var acc1 = document.getElementsByClassName("accordion1");
+
+/*
+for (i = 0; i < acc1.length; i++) {
+  console.log(i + "forloop");
+  acc1[i].addEventListener("click", function() {
+    
+    /*var panel1 = this.nextElementSibling;
+    if (panel1.style.maxHeight){
+      panel1.style.maxHeight = null;
+    } else {
+      panel1.style.maxHeight = panel1.scrollHeight+100 + "px";
+    } 
+  });
+}
+*/
 
 
 acc11.addEventListener("click",function() {
@@ -575,15 +630,12 @@ acc32.addEventListener("click",function(){
 btn44.addEventListener("click",function(){
   i=4;
   $('#myInput').css("display","block");
-  query("select c.author_ID, c.author_name,p.author_affiliation,c.paper_count from Author_Paper_Count_AM c left join Authors_AM p  on p.author_ID =c.author_ID order by paper_count desc limit 20;");
-  //query("select * from Author_Paper_Count_AM order by author_id limit 10;");
+  query("select * from Author_Paper_Count_AM order by rand() limit 10;");
   console.log("paper count");
   //description(i);
 
 }); 
 
-
-//ABOUT QUERIES
 function description(ii){
   console.log("in desc");
   console.log(ii);
@@ -712,8 +764,6 @@ function selected() {
     document.getElementById("q2").style.display= "none";
   }
 }
-
-// TRIGGER. TEXTBOX INPUT
 function myFunction() {
   // Declare variables
   var filter;
@@ -721,7 +771,6 @@ function myFunction() {
   console.log(filter);
   i = 4;
   if (filter !='undefined') 
-    //query("SELECT * FROM Author_Paper_Count_AM WHERE LOWER(author_ID) = '"+ filter + "';");
-    query("select c.author_ID, c.author_name,p.author_affiliation,c.paper_count from Author_Paper_Count_AM c , Authors_AM p  where p.author_ID =c.author_ID and LOWER(c.author_ID) = '"+ filter + "';");
-
+    query("SELECT * FROM Author_Paper_Count_AM WHERE LOWER(author_ID) = '"+ filter + "';");
+  //query("select a.author_ID as ID ,a.author_name as Author,pam.paper_title as 'Paper_Title' from Paper_Author_AM p,Papers_AM pam, Authors_AM a where pam.paper_ID = p.paper_ID and  p.author_ID=a.author_ID and LOWER(a.author_ID) = '"+ filter + "';"); 
 }
